@@ -44,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               alignment: Alignment(0, 0.8),
               child: DefaultTextStyle(
                   style: TextStyle(
-                      color: Colors.black87,
+                      color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.normal),
                   child: Row(

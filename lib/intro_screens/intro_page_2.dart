@@ -19,7 +19,7 @@ class _IntroPage2State extends State<IntroPage2> {
     // TODO: implement initState
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-            autoPlay: false, aspectRatio: 16 / 9, fit: BoxFit.contain);
+            autoPlay: false, aspectRatio: 16 / 9, fit: BoxFit.fitWidth, );
 
     BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network;
 
@@ -35,7 +35,8 @@ class _IntroPage2State extends State<IntroPage2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff80e4ed),
+      height: 200,
+      color: Color(0xff4F3C75),
       child: BetterPlayer(
           key: _betterPlayerKey, controller: _betterPlayerController!),
     );

@@ -1,3 +1,4 @@
+import 'package:better_player/better_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,10 @@ class _LoginPageState extends State<LoginPage> {
   // Text Controllers
   final _emailControl = TextEditingController();
   final _passwordControl = TextEditingController();
+  GlobalKey _betterPlayerKey = GlobalKey();
+  BetterPlayerController? _betterPlayerController;
+  String url =
+      "https://firebasestorage.googleapis.com/v0/b/demos-d97a5.appspot.com/o/Modulo_2%2Foshi.mp4?alt=media&token=98f2afac-b6c2-409c-b0d9-9dcd80fec334";
 
   Future iniciarSesion() async {
     //Circulo de carga
@@ -33,6 +38,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    BetterPlayerConfiguration betterPlayerConfiguration =
+        BetterPlayerConfiguration(
+      autoPlay: false,
+      aspectRatio: 16 / 9,
+      fit: BoxFit.fitWidth,
+    );
+
+    BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network;
+
+    BetterPlayerDataSource dataSource = BetterPlayerDataSource(type, url);
+
+    _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+
+    _betterPlayerController!.setupDataSource(dataSource);
+
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     _emailControl.dispose();
@@ -43,18 +69,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color(0xffFFC63A),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.android,
-                  size: 100,
-                ),
-
                 SizedBox(
                   height: 75,
                 ),
@@ -64,15 +85,25 @@ class _LoginPageState extends State<LoginPage> {
                   "Hola!",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Color(0xff6C4B28),
                     fontSize: 36,
                   ),
                 ),
 
                 Text(
                   "Bienvenido",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                  style: TextStyle(fontSize: 20, color: Color(0xff6C4B28)),
+                ),
+
+                SizedBox(
+                  height: 50,
+                ),
+
+                Container(
+                  width: 300,
+                  child: BetterPlayer(
+                      key: _betterPlayerKey,
+                      controller: _betterPlayerController!),
                 ),
 
                 SizedBox(
@@ -84,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffFEECD9),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -107,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffFEECD9),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -145,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Olvidaste tu contraseña?",
                           style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                              color: Color(0xff085394), fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -164,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: Color(0xffd88dbc),
+                          color: Color(0xff42BF51),
                           borderRadius: BorderRadius.circular(12)),
                       child: Center(
                         child: Text(
@@ -196,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "  Registratate ahora",
                         style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                            color: Color(0xff085394), fontWeight: FontWeight.bold),
                       ),
                     )
                   ],

@@ -10,13 +10,7 @@ class IntroPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xfffcb5ac),
-      /* decoration: BoxDecoration(
-        color: Color(0xfffcb5ac),
-        image: DecorationImage(
-            image: AssetImage("./assets/images/logo.png"),
-            fit: BoxFit.fitHeight),
-      ), */
+      color: Color(0xff4F3C75),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,19 +24,10 @@ class IntroPage1 extends StatelessWidget {
             height: 50,
           ),
 
-          /* Text(
-            welcomeText,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-          ), */
-
           DefaultTextStyle(
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),

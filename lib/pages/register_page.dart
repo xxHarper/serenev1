@@ -118,7 +118,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      /* backgroundColor: Colors.grey[300], */
+      backgroundColor: Color(0xff6EC6FF),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -135,6 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 36,
+                    color: Color(0xff0B5382),
                   ),
                 ),
 
@@ -142,6 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   "Ingresa tus datos abajo",
                   style: TextStyle(
                     fontSize: 20,
+                    color: Color(0xff0B5382),
                   ),
                 ),
 
@@ -154,7 +157,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -177,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -200,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -224,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: DropdownButtonHideUnderline(
@@ -250,7 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: DropdownButtonHideUnderline(
@@ -276,7 +279,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: DropdownButtonHideUnderline(
@@ -302,7 +305,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: DropdownButtonHideUnderline(
@@ -327,7 +330,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -350,7 +353,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -374,7 +377,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[200],
+                        color: Color(0xffDFF3FF),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -396,11 +399,33 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 Text(
                   textAlign: TextAlign.center,
-                  "Al crear una cuenta estás de acuerdo con los",
+                  "Al crear una cuenta estás de acuerdo con nuestro",
                   style: TextStyle(fontWeight: FontWeight.normal),
                 ),
 
-                // Terms of use
+                // Policy Privacy
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return PolicyDialog(
+                                  mdFileName: "privacy_policy.md");
+                            });
+                      },
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "Aviso de Privacidad y",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff0B5382),
+                        ),
+                      ),
+                    )),
+
+                // PTerms of use
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: GestureDetector(
@@ -415,28 +440,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Text(
                         textAlign: TextAlign.center,
                         "Términos y Condiciones",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xff0B5382),),
                       ),
-                    )
-
-                    /*RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                          text: "Al crear una cuenta esta de acuerdo con los\n",
-                          style: Theme.of(context).textTheme.bodyText1,
-                          children: [
-                            TextSpan(
-                                text: "Términos y Condiciones",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {showDialog(context: context, builder: (context){
-                                    return PolicyDialog(mdFileName: "terms_and_conditions.md");
-                                  });
-                                  // Open dialog with terms and conditions
-                                  })
-                          ]),
-                    )*/
-                    ),
+                    )),
 
                 SizedBox(
                   height: 20,
@@ -450,7 +456,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: Color(0xffd88dbc),
+                          color: Color(0xff2980B9),
                           borderRadius: BorderRadius.circular(12)),
                       child: Center(
                         child: Text(
@@ -482,7 +488,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Text(
                         "  Iniciar sesión",
                         style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                            color: Color(0xff0B5382),
+                            fontWeight: FontWeight.bold),
                       ),
                     )
                   ],

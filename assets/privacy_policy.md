@@ -1,4 +1,4 @@
-AVISO DE PRIVACIDAD INTEGRAL
+**Aviso de Privacidad Integral**
 
 Proyecto PAPIIT 300223: Aceptación y utilidad clínica de una intervención de telepsicología autoaplicada para la promoción del bienestar como elemento de prevención en salud mental.
 
@@ -46,4 +46,31 @@ Ejercicio de su Derecho a la Portabilidad de Datos Personales
 
 Esta área universitaria actualmente no cuenta con formatos estructurados y comúnmente utilizados para la portabilidad de datos personales, en términos de lo dispuesto en el artículo 6 de los Lineamientos que establecen los parámetros, modalidades y procedimientos para la portabilidad de datos personales, por lo que no es posible, por el momento, ejercer la portabilidad de datos personales.
 
-Cookies y Web Beacons.
+**Cookies**
+
+Las cookies son archivos con una pequeña cantidad de datos que se utilizan comúnmente como identificadores únicos anónimos. Estos se envían a su navegador desde los sitios web que visita y se almacenan en la memoria interna de su dispositivo.
+
+Este Servicio no utiliza estas "cookies" de forma explícita. Sin embargo, la aplicación puede usar código y bibliotecas de terceros que usan "cookies" para recopilar información y mejorar sus servicios. Tiene la opción de aceptar o rechazar estas cookies y saber cuándo se envía una cookie a su dispositivo. Si elige rechazar nuestras cookies, es posible que no pueda utilizar algunas partes de este Servicio.
+
+**Proveedores de servicio**
+
+Es posible que empleemos a empresas e individuos de terceros debido a las siguientes razones:
+
+* Para facilitar nuestro Servicio;
+* Para proporcionar el Servicio en nuestro nombre;
+* Para realizar servicios relacionados con el Servicio; o
+* Para ayudarnos a analizar cómo se utiliza nuestro Servicio.
+
+Queremos informar a los usuarios de este Servicio que estos terceros tienen acceso a su Información personal. El motivo es realizar las tareas que se les asignan en nuestro nombre. Sin embargo, están obligados a no divulgar ni utilizar la información para ningún otro fin.
+
+**Seguridad**
+
+Valoramos su confianza al proporcionarnos su información personal, por lo que nos esforzamos por utilizar medios comercialmente aceptables para protegerla. Pero recuerde que ningún método de transmisión por Internet, o método de almacenamiento electrónico es 100% seguro y confiable, y no podemos garantizar su seguridad absoluta.
+
+**Enlaces a otros sitios**
+
+Este Servicio puede contener enlaces a otros sitios. Si hace clic en un enlace de un tercero, será dirigido a ese sitio. Tenga en cuenta que estos sitios externos no son operados por nosotros. Por lo tanto, le recomendamos encarecidamente que revise la Política de privacidad de estos sitios web. No tenemos control ni asumimos ninguna responsabilidad por el contenido, las políticas de privacidad o las prácticas de los sitios o servicios de terceros.
+
+**Cambios a esta Política de privacidad**
+
+Es importante tener en cuenta que este aviso de privacidad puede sufrir modificaciones o actualizaciones, las cuales estarán disponibles en el sitio web del Proyecto en la sección de Aviso de Privacidad. Se recomienda consultar el Aviso de Privacidad Integral al menos semestralmente para estar actualizado sobre las condiciones y términos del mismo. También se invita a los usuarios a consultar el aviso de privacidad de la Facultad de Estudios Superiores Iztacala: <https://www.iztacala.unam.mx/ap.php>
