@@ -18,36 +18,49 @@ class MyBottomNavBar extends StatelessWidget {
   void Function(int)? onTabChange;
   MyBottomNavBar({super.key, required this.onTabChange});
 
+  Color _colorContainer = Colors.white;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xffDDCCFE),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      child: GNav(
-        color: Colors.black54,
-        activeColor: Colors.white,
-        tabBackgroundColor: Color(0xff4F3C75),
-        padding: const EdgeInsets.all(16),
-        gap: 8,
-        onTabChange: (value) => onTabChange!(value),
-        tabs: const [
-          GButton(
-            icon: Icons.account_tree,
-            text: 'Módulos',
+    return Ink(
+      child: InkWell(
+        child: Container(
+          /* color: Color.fromARGB(255, 255, 255, 255), */
+          color: _colorContainer,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+          child: GNav(
+            //When no in use
+            color: Colors.black54,
+            activeColor: Colors.white,
+            //Surroanding
+            tabBackgroundColor: Colors.grey.shade800,
+            padding: const EdgeInsets.all(5),
+            gap: 8,
+            onTabChange: (value) => onTabChange!(value),
+            tabs: const [
+              GButton(
+                icon: Icons.account_tree,
+                text: 'Módulos',
+                backgroundColor: Color(0xff4F3C75),
+              ),
+              GButton(
+                icon: Icons.add_chart,
+                text: 'Estado Físico',
+                backgroundColor: Colors.redAccent,
+              ),
+              GButton(
+                icon: Icons.person,
+                text: 'Perfil',
+                backgroundColor: Color(0xffFFC63A),
+              ),
+              GButton(
+                icon: Icons.message,
+                text: 'Social',
+                backgroundColor: Color(0xff6EC6FF),
+              ),
+            ],
           ),
-          GButton(
-            icon: Icons.add_chart,
-            text: 'Estado Físico',
-          ),
-          GButton(
-            icon: Icons.person,
-            text: 'Perfil',
-          ),
-          GButton(
-            icon: Icons.message,
-            text: 'Social',
-          ),
-        ],
+        ),
       ),
     );
   }
