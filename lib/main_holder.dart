@@ -50,22 +50,22 @@ class _MainHolderState extends State<MainHolder> {
 
     */
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color(0xff4F3C75),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xff4F3C75),
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(
               Icons.menu,
-              color: Colors.grey.shade800,
+              color: Colors.white,
             ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
         title: Text(
           'S E R E N E',
-          style: TextStyle(color: Colors.grey.shade800),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       drawer: MyDrawer(),

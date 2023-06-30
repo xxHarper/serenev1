@@ -1,6 +1,7 @@
 import 'package:better_player/better_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'forgot_password_page.dart';
 
@@ -35,6 +36,17 @@ class _LoginPageState extends State<LoginPage> {
 
     // Remove the circle
     Navigator.of(context).pop();
+  }
+
+  Future sos() async {
+    final Uri url = Uri(scheme: "tel", path: "911");
+
+    if (await canLaunchUrl(url)){
+      await launchUrl(url);
+    }
+    else{
+      print("cannot launch unu");
+    }
   }
 
   @override
@@ -77,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 75,
+                  height: 25,
                 ),
 
                 //HOla
@@ -211,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 SizedBox(
-                  height: 25,
+                  height: 20,
                 ),
 
                 //Register
@@ -231,6 +243,37 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )
                   ],
+                ),
+
+                SizedBox(
+                  height: 20,
+                ),
+
+                //SOS button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: GestureDetector(
+                    onTap: sos,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Center(
+                        child: Text(
+                          "SOS",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),

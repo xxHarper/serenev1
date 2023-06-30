@@ -90,16 +90,174 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Color(0xff4F3C75),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //Evaluacion Previa
+          Container(
+              color: Color(0xffDDCCFE),
+              height: 100,
+              child: Center(
+                child: OutlinedButton(
+                  onPressed: null,
+                  child: Text("Evaluación Previa",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  style: OutlinedButton.styleFrom(
+                      fixedSize: Size.fromWidth(250),
+                      backgroundColor: Color(0xff4F3C75),
+                      side: BorderSide(width: 2, color: Colors.black)),
+                ),
+              )),
+
           SizedBox(
-            height: 30,
+            height: 20,
           ),
 
-          // MODULO 1
+          Expanded(
+            /* color: Color(0xffDDCCFE), */
+            child: AbsorbPointer(
+              absorbing: false,
+              child: Container(
+                color: Color(0xffDDCCFE),
+                child: ListView(
+                  children: [
+                    GridView.count(
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      children: <Widget>[
+                        Container(
+                          child: Center(child: Text("1. Aumenta tu motivación", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Center(child: Text("2. Hábitos saludables", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),Container(
+                          child: Center(child: Text("3. Mis apoyos y relaciones sociales", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),Container(
+                          child: Center(child: Text("4. El poder de mis emociones", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),Container(
+                          child: Center(child: Text("5. Viviendo en plenitud", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),Container(
+                          child: Center(child: Text("6. Afrontando situaciones", textAlign: TextAlign.center,)),
+                          height: 200,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.grey[200],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purpleAccent.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+
+                    /* GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 6,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      itemBuilder: (context, index) => Container(
+                        height: 200,
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.grey[200],
+                        ),
+                      ),
+                    ), */
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+
+          /* // MODULO 1
           ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(
@@ -107,27 +265,10 @@ class _HomePageState extends State<HomePage> {
                   "/module_1",
                 );
               },
-              child: const Text("Módulo 1")),
-
-          // MODULO 2
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  "/module_2",
-                );
-              },
-              child: const Text("Módulo 2")),
-
-          // BACKGROUND
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/on_off");
-              },
-              child: const Text("Background")),
+              child: const Text("Módulo 1")), */
 
           // DATOS
-          Expanded(
+          /* Expanded(
             child: FutureBuilder(
               future: getDocIDs(),
               builder: (context, snapshot) {
@@ -146,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                     });
               },
             ),
-          ),
+          ), */
         ],
       )),
     );

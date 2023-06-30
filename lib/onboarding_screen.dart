@@ -41,7 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           // Dot indicators
           Container(
-              alignment: Alignment(0, 0.8),
+              alignment: Alignment(0, 0.95),
               child: DefaultTextStyle(
                   style: TextStyle(
                       color: Colors.white,

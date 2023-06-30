@@ -34,4 +34,13 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <queries>
+    <!-- Place inside the <queries> element. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <!-- If you don't know the MIME type in advance, set "mimeType" to "*/*". -->
+            <data android:scheme="tel" />
+        </intent>
+
+    </queries>
 </manifest>

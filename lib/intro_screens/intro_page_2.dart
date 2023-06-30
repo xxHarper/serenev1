@@ -11,15 +11,18 @@ class IntroPage2 extends StatefulWidget {
 class _IntroPage2State extends State<IntroPage2> {
   GlobalKey _betterPlayerKey = GlobalKey();
   BetterPlayerController? _betterPlayerController;
-  String url = "https://firebasestorage.googleapis.com/v0/b/demos-d97a5.appspot.com/o/Modulo_2%2Foshi.mp4?alt=media&token=98f2afac-b6c2-409c-b0d9-9dcd80fec334";
-
+  String url =
+      "https://firebasestorage.googleapis.com/v0/b/demos-d97a5.appspot.com/o/Modulo_2%2Foshi.mp4?alt=media&token=98f2afac-b6c2-409c-b0d9-9dcd80fec334";
 
   @override
   void initState() {
     // TODO: implement initState
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-            autoPlay: false, aspectRatio: 16 / 9, fit: BoxFit.fitWidth, );
+      autoPlay: false,
+      aspectRatio: 16 / 9,
+      fit: BoxFit.fitWidth,
+    );
 
     BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network;
 
@@ -35,10 +38,15 @@ class _IntroPage2State extends State<IntroPage2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       color: Color(0xff4F3C75),
-      child: BetterPlayer(
-          key: _betterPlayerKey, controller: _betterPlayerController!),
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          width: 300,
+          child: BetterPlayer(
+              key: _betterPlayerKey, controller: _betterPlayerController!),
+        ),
+      ),
     );
   }
 }
