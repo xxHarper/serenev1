@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:serenev1/pages/evaluation_page.dart';
 
 import '../read-data/get_user_name.dart';
 import '../services/notification_services.dart';
@@ -101,7 +102,13 @@ class _HomePageState extends State<HomePage> {
               height: 100,
               child: Center(
                 child: OutlinedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EvaluationPage()),
+                    );
+                  },
                   child: Text("Evaluación Previa",
                       style: TextStyle(color: Colors.white, fontSize: 18)),
                   style: OutlinedButton.styleFrom(
@@ -130,7 +137,11 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       children: <Widget>[
                         Container(
-                          child: Center(child: Text("1. Aumenta tu motivación", textAlign: TextAlign.center,)),
+                          child: Center(
+                              child: Text(
+                            "1. Aumenta tu motivación",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -147,7 +158,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          child: Center(child: Text("2. Hábitos saludables", textAlign: TextAlign.center,)),
+                          child: Center(
+                              child: Text(
+                            "2. Hábitos saludables",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -162,8 +177,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        ),Container(
-                          child: Center(child: Text("3. Mis apoyos y relaciones sociales", textAlign: TextAlign.center,)),
+                        ),
+                        Container(
+                          child: Center(
+                              child: Text(
+                            "3. Mis apoyos y relaciones sociales",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -178,8 +198,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        ),Container(
-                          child: Center(child: Text("4. El poder de mis emociones", textAlign: TextAlign.center,)),
+                        ),
+                        Container(
+                          child: Center(
+                              child: Text(
+                            "4. El poder de mis emociones",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -194,8 +219,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        ),Container(
-                          child: Center(child: Text("5. Viviendo en plenitud", textAlign: TextAlign.center,)),
+                        ),
+                        Container(
+                          child: Center(
+                              child: Text(
+                            "5. Viviendo en plenitud",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
@@ -210,8 +240,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        ),Container(
-                          child: Center(child: Text("6. Afrontando situaciones", textAlign: TextAlign.center,)),
+                        ),
+                        Container(
+                          child: Center(
+                              child: Text(
+                            "6. Afrontando situaciones",
+                            textAlign: TextAlign.center,
+                          )),
                           height: 200,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
