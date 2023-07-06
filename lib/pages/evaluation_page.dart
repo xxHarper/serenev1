@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:serenev1/pages/results_page.dart';
 
 import '../models/question_model.dart';
 import '../services/local_storage.dart';
@@ -15,10 +19,57 @@ class _EvaluationPageState extends State<EvaluationPage> {
   int _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
   PageController? _controller;
 
+  List _items = [];
+  List<Question> questions = [];
+
+  Future readJson() async {
+    final String response =
+        await rootBundle.loadString("assets/sociodemographic.json");
+    final data = await json.decode(response);
+
+    setState(() {
+      _items = data["sociodemographic"];
+
+      _items.forEach((question) {
+        questions.add(Question(
+            text: question["question"],
+            options: readOptions(question["option"].length, question)));
+        /* print(question["question"]);
+        print(question["option"].length); */
+      });
+    });
+  }
+
+  readOptions(int nOptions, question) {
+    List<Option> _options = [];
+
+    setState(() {
+      for (var i = 0; i < nOptions; i++) {
+        _options.add(Option(text: question["option"][i].toString()));
+      }
+    });
+
+    /* print("OPCIONES: ${_options}"); */
+    return _options;
+  }
+
   @override
   void initState() {
     super.initState();
-    _controller = PageController(initialPage: 0);
+
+    setState(() {
+      _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
+      _controller = PageController(initialPage: _questionNumber, keepPage: true);
+    });
+    
+    print("NUMERO: ${_questionNumber - 1}");
+    readJson();
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,11 +86,11 @@ class _EvaluationPageState extends State<EvaluationPage> {
         child: Container(
           color: Color(0xffE2F5FF),
           /* margin: EdgeInsets.all(15.0), */
-          margin: EdgeInsets.symmetric(vertical: 50, horizontal: 16),
+          margin: EdgeInsets.symmetric(vertical: 30, horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text("Pregunta $_questionNumber/${questions.length}"),
+              Text("Pregunta $_questionNumber/${_items.length}"),
               Divider(
                 thickness: 1,
                 color: Colors.grey,
@@ -47,7 +98,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
               Expanded(
                 child: PageView.builder(
                   controller: _controller,
-                  itemCount: questions.length,
+                  itemCount: _items.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final _question = questions[index];
@@ -55,20 +106,28 @@ class _EvaluationPageState extends State<EvaluationPage> {
                   },
                 ),
               ),
-              buildElevatedButton(),
-              ElevatedButton(
-                  onPressed: () {
-                    _controller!.previousPage(
-                        duration: Duration(milliseconds: 250),
-                        curve: Curves.easeInExpo);
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildElevatedButton(),
+                  ElevatedButton(
+                      onPressed: () {
+                        _controller!.previousPage(
+                            duration: Duration(milliseconds: 50),
+                            curve: Curves.easeInExpo);
 
-                    setState(() {
-                      _questionNumber--;
-                      LocalStorage.prefs
-                          .setInt("questionNumber", _questionNumber);
-                    });
-                  },
-                  child: Text("Anterior")),
+                        setState(() {
+                          if (_questionNumber > 1) {
+                            _questionNumber--;
+                          }
+
+                          LocalStorage.prefs
+                              .setInt("questionNumber", _questionNumber);
+                        });
+                      },
+                      child: Text("Anterior")),
+                ],
+              ),
             ],
           ),
         ),
@@ -110,15 +169,19 @@ class _EvaluationPageState extends State<EvaluationPage> {
     return ElevatedButton(
         onPressed: () {
           if (_questionNumber < questions.length) {
+            /* readJson(); */
             _controller!.nextPage(
-                duration: Duration(milliseconds: 250),
-                curve: Curves.easeInExpo);
+                duration: Duration(milliseconds: 50), curve: Curves.easeInExpo);
 
             setState(() {
               _questionNumber++;
+              print("VALE ESTO: ${_questionNumber}");
               LocalStorage.prefs.setInt("questionNumber", _questionNumber);
             });
-          } else {}
+          } else {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => ResultsPage()));
+          }
         },
         child: Text(_questionNumber < questions.length
             ? "Siguiente"

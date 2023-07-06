@@ -49,10 +49,11 @@ class OptionWidget extends StatelessWidget {
 
     if (question.isLocked) {
       if (isSelected) {
-        return option.isCorrect ? Colors.green : Colors.red;
-      } else if (option.isCorrect) {
+        /* return option.isCorrect ? Colors.green : Colors.red; */
+        return Colors.redAccent;
+      } /* else if (option.isCorrect) {
         return Colors.green;
-      }
+      } */
     }
 
     return Colors.grey.shade300;
