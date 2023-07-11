@@ -26,7 +26,7 @@ class _VideoScreenState extends State<VideoScreen> {
     // TODO: implement initState
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-            autoPlay: false, aspectRatio: 16 / 9, fit: BoxFit.contain);
+            autoPlay: true, aspectRatio: 16 / 9, fit: BoxFit.contain);
 
     BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network;
 
@@ -42,11 +42,8 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
 //    final WidgetArguments arguments = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Ejemplo de video"),
-      ),
-      body: AspectRatio(
+    return Container(
+      child: AspectRatio(
         aspectRatio: 16 / 9,
         child: BetterPlayer(
             key: _betterPlayerKey, controller: _betterPlayerController!),

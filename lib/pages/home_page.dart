@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:serenev1/modules/module_1/module_1.dart';
 import 'package:serenev1/pages/evaluation_page.dart';
 
 import '../read-data/get_user_name.dart';
@@ -136,25 +137,34 @@ class _HomePageState extends State<HomePage> {
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       children: <Widget>[
-                        Container(
-                          child: Center(
-                              child: Text(
-                            "1. Aumenta tu motivación",
-                            textAlign: TextAlign.center,
-                          )),
-                          height: 200,
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Colors.grey[200],
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.purpleAccent.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Module1()),
+                            );
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Text(
+                              "1. Aumenta tu motivación",
+                              textAlign: TextAlign.center,
+                            )),
+                            height: 200,
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.grey[200],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.purpleAccent.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(

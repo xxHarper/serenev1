@@ -59,9 +59,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
     setState(() {
       _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
-      _controller = PageController(initialPage: _questionNumber, keepPage: true);
+      _controller =
+          PageController(initialPage: _questionNumber, keepPage: true);
     });
-    
+
     print("NUMERO: ${_questionNumber - 1}");
     readJson();
   }
@@ -86,7 +87,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
         child: Container(
           color: Color(0xffE2F5FF),
           /* margin: EdgeInsets.all(15.0), */
-          margin: EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+          margin: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -107,9 +108,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  buildElevatedButton(),
                   ElevatedButton(
                       onPressed: () {
                         _controller!.previousPage(
@@ -126,6 +126,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         });
                       },
                       child: Text("Anterior")),
+                  buildElevatedButton(),
                 ],
               ),
             ],
