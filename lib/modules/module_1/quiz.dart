@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serenev1/components/top_module_1.dart';
+import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/video.dart';
 
 import '../../models/option_widget.dart';
@@ -13,6 +13,10 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  final Color letter = const Color(0XFF3A907A);
+  final Color lightBackground = const Color(0XFFE2FFF7);
+  final Color back = const Color(0xff42BF9F);
+
   PageController? _controller;
   int _questionNumber = 1;
 
@@ -35,32 +39,32 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff42BF9F),
+        backgroundColor: back,
       ),
-      backgroundColor: const Color(0xff42BF9F),
+      backgroundColor: back,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TopModule1(),
+            MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
               padding: const EdgeInsets.symmetric(horizontal: 12),
               height: 80,
               width: double.infinity,
-              color: const Color(0XFFE2FFF7),
-              child: const Text(
+              color: lightBackground,
+              child: Text(
                 "Contesta las siguientes preguntas que serán para reflexionar sobre tus motivaciones y metas:",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: Color(0XFF3A907A),
+                  color: letter,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Container(
-              color: const Color(0XFFE2FFF7),
+              color: lightBackground,
               /* color: Colors.red, */
               height: 420,
               padding: const EdgeInsets.symmetric(vertical: 1),
@@ -70,19 +74,19 @@ class _QuizState extends State<Quiz> {
                 children: [
                   Text(
                     "Pregunta $_questionNumber/${quiz.length}",
-                    style: const TextStyle(
-                      color: Color(0XFF3A907A),
+                    style: TextStyle(
+                      color: letter,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Divider(
+                  Divider(
                     thickness: 1,
-                    color: Color(0XFF3A907A),
+                    color: letter,
                   ),
                   Container(
                     height: 320,
-                    color: const Color(0XFFE2FFF7),
+                    color: lightBackground,
                     /* color: Colors.red, */
                     child: Expanded(
                         child: PageView.builder(
@@ -105,12 +109,12 @@ class _QuizState extends State<Quiz> {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               height: 100,
               width: double.infinity,
-              color: const Color(0XFFE2FFF7),
-              child: const Text(
+              color: lightBackground,
+              child: Text(
                 "Nota: Esto no es una evaluación psicológica, no está validada como una herramienta de diagnóstico, solo son preguntas que permiten una reflexión.",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: Color(0XFF3A907A),
+                  color: letter,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -160,7 +164,7 @@ class _QuizState extends State<Quiz> {
     return ElevatedButton(
         style: OutlinedButton.styleFrom(
             /* fixedSize: const Size.fromWidth(250), */
-            backgroundColor: const Color(0xff42BF9F),
+            backgroundColor: back,
             side: const BorderSide(width: 2, color: Colors.black)),
         onPressed: () {
           if (_questionNumber < quiz.length) {
