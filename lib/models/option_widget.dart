@@ -25,7 +25,7 @@ class OptionWidget extends StatelessWidget {
       onTap: () => onClikedOption(option),
       child: Container(
         height: 50,
-        margin: EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
@@ -34,9 +34,11 @@ class OptionWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              option.text,
-              style: TextStyle(fontSize: 20),
+            Container(margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+              child: Text(
+                option.text,
+                style: const TextStyle(fontSize: 18),
+              ),
             )
           ],
         ),

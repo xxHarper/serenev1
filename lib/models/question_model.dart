@@ -35,3 +35,31 @@ class Option {
     const Option(text: "Hola2", isCorrect: true)
   ]),
 ]; */
+
+final quiz = [
+  Question(text: "¿Con qué frecuencia piensas en tus metas?", options: [
+    const Option(text: "Nunca"),
+    const Option(text: "Ocasionalmente"),
+    const Option(text: "Frecuentemente")
+  ]),
+  Question(text: "¿Consideras que tus metas son realistas?", options: [
+    const Option(text: "En absoluto"),
+    const Option(text: "Algunas veces"),
+    const Option(text: "Totalmente")
+  ]),
+  Question(text: "¿Con qué frecuencia logras las metas que te propones?", options: [
+    const Option(text: "Rara vez o nunca"),
+    const Option(text: "Algunas veces"),
+    const Option(text: "La mayoría de las veces")
+  ]),
+  Question(text: "¿Qué tan satisfecho(a) te sientes con tus logros actuales?", options: [
+    const Option(text: "Insatisfecho(a)"),
+    const Option(text: "Neutral"),
+    const Option(text: "Muy satisfecho(a)")
+  ]),
+  Question(text: "¿Qué tan motivada(o) estás para alcanzar tus metas?", options: [
+    const Option(text: "Sin motivación"),
+    const Option(text: "Moderadamente motivado(a)"),
+    const Option(text: "Muy motivado(a)")
+  ]),
+];

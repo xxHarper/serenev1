@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/top_module_1.dart';
-import 'package:serenev1/modules/module_1/quiz.dart';
+import 'package:serenev1/modules/module_1/objectives.dart';
 import 'package:serenev1/videos/video_screen.dart';
 
-class Detonant extends StatefulWidget {
-  const Detonant({Key? key}) : super(key: key);
+class Video extends StatelessWidget {
+  const Video({Key? key}) : super(key: key);
 
-  @override
-  _DetonantState createState() => _DetonantState();
-}
-
-class _DetonantState extends State<Detonant> {
   final String url =
       "https://firebasestorage.googleapis.com/v0/b/demos-d97a5.appspot.com/o/Modulo_2%2Foshi.mp4?alt=media&token=98f2afac-b6c2-409c-b0d9-9dcd80fec334";
 
@@ -41,7 +36,8 @@ class _DetonantState extends State<Detonant> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Quiz()),
+                          MaterialPageRoute(
+                              builder: (context) => const Objectives()),
                         );
                       },
                       style: OutlinedButton.styleFrom(

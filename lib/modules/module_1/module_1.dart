@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:serenev1/components/top_module_1.dart';
 import 'package:serenev1/modules/module_1/detonant.dart';
 
 class Module1 extends StatefulWidget {
@@ -17,36 +18,21 @@ class _Module1State extends State<Module1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff42BF9F),
-        title: Text(
+        backgroundColor: const Color(0xff42BF9F),
+        title: const Text(
           "",
           textAlign: TextAlign.center,
         ),
       ),
-      backgroundColor: Color(0xff42BF9F),
+      backgroundColor: const Color(0xff42BF9F),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-            height: 100,
-            width: double.infinity,
-            color: Color(0XFFE2FFF7),
-            child: Text(
-              "Bloque 1 \nAumenta tu motivación",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0XFF3A907A),
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const TopModule1(),
           Expanded(
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-              color: Color(0XFFE2FFF7),
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              color: const Color(0XFFE2FFF7),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -54,7 +40,7 @@ class _Module1State extends State<Module1> {
                     height: 220,
                     child: DefaultTextStyle(
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0XFF3A907A),
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -63,7 +49,7 @@ class _Module1State extends State<Module1> {
                           animatedTexts: [
                             FadeAnimatedText(welcomeText,
                                 textAlign: TextAlign.center,
-                                duration: Duration(milliseconds: 6000))
+                                duration: const Duration(milliseconds: 6000))
                           ],
                           repeatForever: true,
                         )),
@@ -77,12 +63,13 @@ class _Module1State extends State<Module1> {
                               builder: (context) => const Detonant()),
                         );
                       },
-                      child: Text("Comenzar",
-                          style: TextStyle(color: Colors.white, fontSize: 18)),
                       style: OutlinedButton.styleFrom(
-                          fixedSize: Size.fromWidth(250),
-                          backgroundColor: Color(0xff42BF9F),
-                          side: BorderSide(width: 2, color: Colors.black)),
+                          fixedSize: const Size.fromWidth(250),
+                          backgroundColor: const Color(0xff42BF9F),
+                          side:
+                              const BorderSide(width: 2, color: Colors.black)),
+                      child: const Text("Comenzar",
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
                     ),
                   )
                 ],
