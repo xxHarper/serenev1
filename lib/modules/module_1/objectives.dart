@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_checkbox_list.dart';
+import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
+import 'package:serenev1/modules/module_1/foda.dart';
 
 class Objectives extends StatefulWidget {
   const Objectives({Key? key}) : super(key: key);
@@ -139,6 +141,18 @@ class _ObjectivesState extends State<Objectives> {
                         'Promover la participación en actividades que incrementen mi bienestar emocional y disfrute personal.',
                     back: back,
                   ),
+                  MySimpleButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Foda()),
+                      );
+                    },
+                    txt: "Listo",
+                    back: back,
+                    txtColor: Colors.white,
+                    btnWidth: 120,
+                  )
                 ],
               ),
             ),
