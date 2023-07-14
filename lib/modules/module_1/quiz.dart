@@ -45,7 +45,10 @@ class _QuizState extends State<Quiz> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
+            MyTopModuleTitle(
+                title: "Bloque 1 \nAumenta tu motivación",
+                letter: letter,
+                lightBackground: lightBackground),
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),

@@ -26,7 +26,10 @@ class _DetonantState extends State<Detonant> {
       backgroundColor: back,
       body: Column(
         children: [
-          MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
+          MyTopModuleTitle(
+              title: "Bloque 1 \nAumenta tu motivación",
+              letter: letter,
+              lightBackground: lightBackground),
           Expanded(
             child: Container(
               color: lightBackground,

@@ -21,7 +21,10 @@ class Video extends StatelessWidget {
       backgroundColor: back,
       body: Column(
         children: [
-          MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
+          MyTopModuleTitle(
+              title: "Bloque 1 \nAumenta tu motivación",
+              letter: letter,
+              lightBackground: lightBackground),
           Expanded(
             child: Container(
               color: lightBackground,

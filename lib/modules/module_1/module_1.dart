@@ -31,7 +31,10 @@ class _Module1State extends State<Module1> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
+          MyTopModuleTitle(
+              title: "Bloque 1 \nAumenta tu motivación",
+              letter: letter,
+              lightBackground: lightBackground),
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),

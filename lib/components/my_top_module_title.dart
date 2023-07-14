@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MyTopModuleTitle extends StatelessWidget {
+  final String title;
   final Color letter;
   final Color lightBackground;
   const MyTopModuleTitle(
-      {Key? key, required this.letter, required this.lightBackground})
+      {Key? key,
+      required this.title,
+      required this.letter,
+      required this.lightBackground})
       : super(key: key);
 
   @override
@@ -16,7 +20,7 @@ class MyTopModuleTitle extends StatelessWidget {
       width: double.infinity,
       color: lightBackground,
       child: Text(
-        "Bloque 1 \nAumenta tu motivación",
+        title,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: letter,

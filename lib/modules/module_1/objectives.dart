@@ -42,7 +42,10 @@ class _ObjectivesState extends State<Objectives> {
       backgroundColor: back,
       body: Column(
         children: [
-          MyTopModuleTitle(letter: letter, lightBackground: lightBackground),
+          MyTopModuleTitle(
+              title: "Bloque 1 \nAumenta tu motivación",
+              letter: letter,
+              lightBackground: lightBackground),
           Expanded(
               child: SingleChildScrollView(
             child: Container(
