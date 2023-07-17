@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_circular_container.dart';
 import 'package:serenev1/components/my_foda_container.dart';
+import 'package:serenev1/modules/module_1/opportunities.dart';
 import 'package:serenev1/modules/module_1/strengths.dart';
+import 'package:serenev1/modules/module_1/threads.dart';
+import 'package:serenev1/modules/module_1/weaknesses.dart';
 
 class Foda extends StatefulWidget {
   const Foda({Key? key}) : super(key: key);
@@ -42,6 +45,47 @@ class _FodaState extends State<Foda> {
     "•  Perdón y piedad",
     "•  Jocosidad y humor",
     "•  Vivacidad / Pasión / Entusiasmo",
+  ];
+
+  List<String> weaknesses = [
+    "•  Ignorancia / Desconocimiento",
+    "•  Desinterés / Apatía",
+    "•  Desatino / Sinrazón",
+    "•  Incapacidad / Torpeza",
+    "•  Ineptitud social / Estupidez personal / Desavenencia emocional",
+    "•  Ineficacia / Inutilidad / Negligencia",
+    "•  Cobardía / Vergüenza",
+    "•  Negligencia / Desidia",
+    "•  Podredumbre / Deshonestidad",
+    "•  Mezquindad / Codicia",
+    "•  Odio / Aborrecer",
+    "•  Traición / Desvergüenza",
+    "•  Injusticia / Parcialidad",
+    "•  Carencia de dirección, organización, autoridad, dominio de grupo",
+    "•  Descontrol / Descuido",
+    "•  Osadía / Ligereza",
+    "•  Soberbia / Arrogancia",
+    "•  Aprecio por la fealdad y antiestética",
+    "•  Ingratitud / Deslealtad",
+    "•  Desesperanza / Desaliento / Pesimismo",
+    "•  Materialismo / Agnosticismo",
+    "•  Castigo / Crueldad / Severidad",
+    "•  Seriedad / disgusto",
+    "•  Desaliento / Tibieza"
+  ];
+
+  List<String> opportunities = [
+    "•  Apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
+    "•  Apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+    "•  Apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+    "•  Prevención de accidentes y desastres naturales"
+  ];
+
+  List<String> threads = [
+    "•  Falta de apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
+    "•  Falta de apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+    "•  Falta de apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+    "•  Falta de prevención de accidentes y desastres naturales"
   ];
 
   @override
@@ -94,23 +138,56 @@ class _FodaState extends State<Foda> {
                               boxShadowColor: Colors.cyanAccent),
                         ),
 
-                        //WEAKNESSES CONTAINER
-                        MyFodaContainer(
-                            txt: "Amenzas",
-                            backColor: Colors.lightGreen,
-                            boxShadowColor: Colors.lightGreenAccent),
+                        //THREADS CONTAINER
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Threads(
+                                        threadsList: threads,
+                                      )),
+                            );
+                          },
+                          child: MyFodaContainer(
+                              txt: "Amenazas",
+                              backColor: Colors.lightGreen,
+                              boxShadowColor: Colors.lightGreenAccent),
+                        ),
 
                         //OPPORTUNITIES CONTAINER
-                        MyFodaContainer(
-                            txt: "Oportunidades",
-                            backColor: Colors.grey,
-                            boxShadowColor: Colors.blueGrey),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Opportunities(
+                                        opportunitiesList: opportunities,
+                                      )),
+                            );
+                          },
+                          child: MyFodaContainer(
+                              txt: "Oportunidades",
+                              backColor: Colors.grey,
+                              boxShadowColor: Colors.blueGrey),
+                        ),
 
-                        //THREADS CONTAINER
-                        MyFodaContainer(
-                            txt: "Debilidades",
-                            backColor: Colors.pink,
-                            boxShadowColor: Colors.pinkAccent),
+                        //WEAKNESSES CONTAINER
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Weaknesses(
+                                        weaknessesList: weaknesses,
+                                      )),
+                            );
+                          },
+                          child: MyFodaContainer(
+                              txt: "Debilidades",
+                              backColor: Colors.pink,
+                              boxShadowColor: Colors.pinkAccent),
+                        ),
                       ],
                     ),
 

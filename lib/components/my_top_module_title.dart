@@ -4,11 +4,13 @@ class MyTopModuleTitle extends StatelessWidget {
   final String title;
   final Color letter;
   final Color lightBackground;
+  final double height;
+
   const MyTopModuleTitle(
       {Key? key,
       required this.title,
       required this.letter,
-      required this.lightBackground})
+      required this.lightBackground, this.height = 100})
       : super(key: key);
 
   @override
@@ -16,7 +18,7 @@ class MyTopModuleTitle extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-      height: 100,
+      height: height,
       width: double.infinity,
       color: lightBackground,
       child: Text(
