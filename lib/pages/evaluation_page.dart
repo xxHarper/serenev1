@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:serenev1/pages/results_page.dart';
 
+import '../components/my_simple_app_bar.dart';
 import '../models/question_model.dart';
 import '../services/local_storage.dart';
 import '../models/option_widget.dart';
@@ -21,6 +22,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   List _items = [];
   List<Question> questions = [];
+
+  final Color back = const Color(0xff4293BF);
+  final Color lightBackground = const Color(0xffE2F5FF);
 
   Future readJson() async {
     final String response =
@@ -76,10 +80,14 @@ class _EvaluationPageState extends State<EvaluationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: MySimpleAppBar(
+          back: back,
+          title: "Evaluación Previa",
+          lightBackground: lightBackground),
+      /* AppBar(
         title: Text("Evaluación Previa"),
         backgroundColor: Color(0xff4293BF),
-      ),
+      ) */
       body: Container(
         width: double.infinity,
         /* BACKGROUND COLOR  */
@@ -144,7 +152,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
           question.text,
           style: TextStyle(fontSize: 25),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Expanded(

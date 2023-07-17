@@ -12,6 +12,7 @@ class MySwot extends StatefulWidget {
   final String title;
   final String swot;
   final TextEditingController myController;
+  final List<String> preSwotList;
   final List<String> swotList;
   final double height;
 
@@ -24,6 +25,7 @@ class MySwot extends StatefulWidget {
       required this.title,
       required this.swot,
       required this.myController,
+      required this.preSwotList,
       required this.swotList,
       this.height = 100})
       : super(key: key);
@@ -47,21 +49,26 @@ class _MySwotState extends State<MySwot> {
               height: widget.height,
             ),
 
-            // SHOW THE LIST OF STRENGHTS
+            // SHOW THE LIST OF ...
             MyFodaListviewBuilder(
-                list: widget.swotList,
+                /* list: widget.swotList, */
+                list: widget.swotList.isNotEmpty
+                    ? widget.swotList
+                    : widget.preSwotList,
                 back: widget.back,
                 lightBackground: widget.lightBackground,
                 letter: widget.letter),
 
-            // ADD NEW STRENGHTS
+            // ADD NEW
             MyFodaTextfield(
                 onSubmitted: (text) {
                   if (text == "") {
                   } else {
-                    widget.swotList.add("•  " + text);
+                    /* widget.swotList.add("•  " + text); */
                     widget.myController.clear();
-                    setState(() {});
+                    setState(() {
+                      widget.swotList.add("•  " + text);
+                    });
                   }
                 },
                 textController: widget.myController,

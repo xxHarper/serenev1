@@ -3,6 +3,8 @@ import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/objectives.dart';
 import 'package:serenev1/videos/video_screen.dart';
 
+import '../../components/my_simple_app_bar.dart';
+
 class Video extends StatelessWidget {
   const Video({Key? key}) : super(key: key);
 
@@ -15,9 +17,7 @@ class Video extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: Column(
         children: [

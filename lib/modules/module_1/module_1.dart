@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/detonant.dart';
 
+import '../../components/my_simple_app_bar.dart';
+
 class Module1 extends StatefulWidget {
   const Module1({Key? key}) : super(key: key);
 
@@ -20,13 +22,7 @@ class _Module1State extends State<Module1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-        title: const Text(
-          "",
-          textAlign: TextAlign.center,
-        ),
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

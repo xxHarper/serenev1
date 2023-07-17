@@ -4,6 +4,8 @@ import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/foda.dart';
 
+import '../../components/my_simple_app_bar.dart';
+
 class Objectives extends StatefulWidget {
   const Objectives({Key? key}) : super(key: key);
 
@@ -36,9 +38,7 @@ class _ObjectivesState extends State<Objectives> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: Column(
         children: [

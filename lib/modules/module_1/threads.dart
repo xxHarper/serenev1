@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_swot.dart';
 
-import '../../components/my_foda_listview_builder.dart';
-import '../../components/my_foda_textfield.dart';
-import '../../components/my_top_module_title.dart';
+import '../../components/my_simple_app_bar.dart';
 
 class Threads extends StatefulWidget {
   List<String> threadsList;
-  Threads({Key? key, required this.threadsList}) : super(key: key);
+  List<String> preThreadsList;
+
+  Threads({Key? key, required this.threadsList, required this.preThreadsList})
+      : super(key: key);
 
   @override
   _ThreadsState createState() => _ThreadsState();
@@ -24,9 +25,7 @@ class _ThreadsState extends State<Threads> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: MySwot(
         back: back,
@@ -38,6 +37,7 @@ class _ThreadsState extends State<Threads> {
         swot: "Agrega tus amenazas",
         myController: threadsController,
         swotList: widget.threadsList,
+        preSwotList: widget.preThreadsList,
         height: 130,
       ),
     );

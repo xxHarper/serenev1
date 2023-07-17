@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_circular_container.dart';
 import 'package:serenev1/components/my_foda_container.dart';
+import 'package:serenev1/components/my_simple_app_bar.dart';
 import 'package:serenev1/modules/module_1/opportunities.dart';
 import 'package:serenev1/modules/module_1/strengths.dart';
 import 'package:serenev1/modules/module_1/threads.dart';
@@ -20,7 +21,9 @@ class _FodaState extends State<Foda> {
   final String instructions =
       "Ahora que has reflexionado sobre tus metas y has entendido lo importante que es tenerlas, vamos a hacer un ejercicio que te ayudará a comprender por qué es tan crucial que te esfuerces por alcanzarlas. Saber esto puede brindarte una motivación significativa y, cada vez que te sientas tentado a abandonar tu meta, podrás recordar tu \"por qué\".";
 
-  List<String> strenghts = [
+  /* List<String> strenghts = [""]; */
+  List<String> strenghts = [];
+  List<String> preStrenghts = [
     "•  Sabiduría y conocimiento",
     "•  Curiosidad / Interés en el mundo",
     "•  Juicio / Pensamiento crítico / Apertura mental",
@@ -47,7 +50,8 @@ class _FodaState extends State<Foda> {
     "•  Vivacidad / Pasión / Entusiasmo",
   ];
 
-  List<String> weaknesses = [
+  List<String> weaknesses = [];
+  List<String> preWeaknesses = [
     "•  Ignorancia / Desconocimiento",
     "•  Desinterés / Apatía",
     "•  Desatino / Sinrazón",
@@ -74,14 +78,16 @@ class _FodaState extends State<Foda> {
     "•  Desaliento / Tibieza"
   ];
 
-  List<String> opportunities = [
+  List<String> opportunities = [];
+  List<String> preOpportunities = [
     "•  Apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
     "•  Apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
     "•  Apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
     "•  Prevención de accidentes y desastres naturales"
   ];
 
-  List<String> threads = [
+  List<String> threads = [];
+  List<String> preThreads = [
     "•  Falta de apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
     "•  Falta de apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
     "•  Falta de apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
@@ -91,9 +97,7 @@ class _FodaState extends State<Foda> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       body: Container(
         color: back,
         child: Container(
@@ -128,12 +132,15 @@ class _FodaState extends State<Foda> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Strengths(
+                                        preStrengthsList: preStrenghts,
                                         strengthsList: strenghts,
                                       )),
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: "Fortalezas",
+                              txt: strenghts.isNotEmpty
+                                  ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
+                                  : "Fortalezas",
                               backColor: Colors.cyan,
                               boxShadowColor: Colors.cyanAccent),
                         ),
@@ -145,12 +152,15 @@ class _FodaState extends State<Foda> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Threads(
+                                        preThreadsList: preThreads,
                                         threadsList: threads,
                                       )),
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: "Amenazas",
+                              txt: threads.isNotEmpty
+                                  ? "Amenazas\n${threads.first}\n${threads.last}"
+                                  : "Amenazas",
                               backColor: Colors.lightGreen,
                               boxShadowColor: Colors.lightGreenAccent),
                         ),
@@ -163,11 +173,14 @@ class _FodaState extends State<Foda> {
                               MaterialPageRoute(
                                   builder: (context) => Opportunities(
                                         opportunitiesList: opportunities,
+                                        preOpportunitiesList: preOpportunities,
                                       )),
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: "Oportunidades",
+                              txt: opportunities.isNotEmpty
+                                  ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
+                                  : "Oportunidades",
                               backColor: Colors.grey,
                               boxShadowColor: Colors.blueGrey),
                         ),
@@ -179,12 +192,15 @@ class _FodaState extends State<Foda> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Weaknesses(
+                                        preWeaknessesList: preWeaknesses,
                                         weaknessesList: weaknesses,
                                       )),
-                            );
+                            ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: "Debilidades",
+                              txt: weaknesses.isNotEmpty
+                                  ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
+                                  : "Debilidades",
                               backColor: Colors.pink,
                               boxShadowColor: Colors.pinkAccent),
                         ),

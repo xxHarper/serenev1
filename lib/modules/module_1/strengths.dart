@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:serenev1/components/my_foda_listview_builder.dart';
-import 'package:serenev1/components/my_foda_textfield.dart';
-import 'package:serenev1/components/my_simple_button.dart';
-import 'package:serenev1/components/my_top_module_title.dart';
+import '../../components/my_simple_app_bar.dart';
+import '../../components/my_swot.dart';
 
 class Strengths extends StatefulWidget {
+  List<String> preStrengthsList;
   List<String> strengthsList;
 
-  Strengths({Key? key, required this.strengthsList}) : super(key: key);
+  Strengths(
+      {Key? key, required this.preStrengthsList, required this.strengthsList})
+      : super(key: key);
 
   @override
   _StrengthsState createState() => _StrengthsState();
@@ -24,44 +25,20 @@ class _StrengthsState extends State<Strengths> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: back,
-        ),
-        backgroundColor: back,
-        body: Column(
-          children: [
-            //TITLE
-            MyTopModuleTitle(
-                title:
-                    "FORTALEZAS\n(aspectos propios de la persona y deben de ser desarrolladas)",
-                letter: letter,
-                lightBackground: lightBackground),
-
-            // SHOW THE LIST OF STRENGHTS
-            MyFodaListviewBuilder(
-                list: widget.strengthsList,
-                back: back,
-                lightBackground: lightBackground,
-                letter: letter),
-
-            // ADD NEW STRENGHTS
-            MyFodaTextfield(
-                onSubmitted: (text) {
-                  if (text == "") {
-                  } else {
-                    widget.strengthsList.add("•  " + text);
-                    strengthsController.clear();
-                    setState(() {});
-                  }
-                },
-                textController: strengthsController,
-                list: widget.strengthsList,
-                hint: "Agrega tus fortalezas:",
-                back: back,
-                lightBackground: lightBackground,
-                letter: letter,
-                border: border),
-          ],
-        ));
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
+      backgroundColor: back,
+      body: MySwot(
+        back: back,
+        lightBackground: lightBackground,
+        letter: letter,
+        border: border,
+        title:
+            "FORTALEZAS\n(aspectos propios de la persona y deben de ser desarrolladas)",
+        swot: "Agrega tus fortalezas",
+        myController: strengthsController,
+        swotList: widget.strengthsList,
+        preSwotList: widget.preStrengthsList,
+      ),
+    );
   }
 }

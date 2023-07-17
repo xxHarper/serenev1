@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/video.dart';
 
+import '../../components/my_simple_app_bar.dart';
 import '../../models/option_widget.dart';
 import '../../models/question_model.dart';
 
@@ -38,9 +39,7 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: SingleChildScrollView(
         child: Column(

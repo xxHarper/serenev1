@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../components/my_simple_app_bar.dart';
 import '../../components/my_swot.dart';
 
 class Opportunities extends StatefulWidget {
+  List<String> preOpportunitiesList;
   List<String> opportunitiesList;
-  Opportunities({Key? key, required this.opportunitiesList}) : super(key: key);
+
+  Opportunities(
+      {Key? key,
+      required this.preOpportunitiesList,
+      required this.opportunitiesList})
+      : super(key: key);
 
   @override
   _OpportunitiesState createState() => _OpportunitiesState();
@@ -21,9 +28,7 @@ class _OpportunitiesState extends State<Opportunities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: back,
-        ),
+        appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
         backgroundColor: back,
         body: MySwot(
           back: back,
@@ -34,6 +39,7 @@ class _OpportunitiesState extends State<Opportunities> {
               "OPORTUNIDADES\n(aspectos que dependen del entorno de las personas y se deben sacar provecho de estas)",
           swot: "Agrega tus oportunidades",
           myController: opportunitiesController,
+          preSwotList: widget.preOpportunitiesList,
           swotList: widget.opportunitiesList,
           height: 130,
         ));

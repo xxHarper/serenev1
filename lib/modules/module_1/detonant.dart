@@ -3,6 +3,8 @@ import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/quiz.dart';
 import 'package:serenev1/videos/video_screen.dart';
 
+import '../../components/my_simple_app_bar.dart';
+
 class Detonant extends StatefulWidget {
   const Detonant({Key? key}) : super(key: key);
 
@@ -20,9 +22,7 @@ class _DetonantState extends State<Detonant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: back,
-      ),
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
       body: Column(
         children: [
