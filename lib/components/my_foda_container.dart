@@ -35,6 +35,7 @@ class MyFodaContainer extends StatelessWidget {
           child: Text(
         txt,
         textAlign: TextAlign.center,
+        style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
       )),
     );
   }

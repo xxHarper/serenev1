@@ -37,6 +37,7 @@ class _StrengthsState extends State<Strengths> {
         swot: "Agrega tus fortalezas",
         myController: strengthsController,
         swotList: widget.strengthsList,
+        localName: "strenghts",
         preSwotList: widget.preStrengthsList,
       ),
     );

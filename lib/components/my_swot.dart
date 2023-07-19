@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/local_storage.dart';
 import 'my_foda_listview_builder.dart';
 import 'my_foda_textfield.dart';
 import 'my_top_module_title.dart';
@@ -14,6 +15,7 @@ class MySwot extends StatefulWidget {
   final TextEditingController myController;
   final List<String> preSwotList;
   final List<String> swotList;
+  final String localName;
   final double height;
 
   const MySwot(
@@ -27,6 +29,7 @@ class MySwot extends StatefulWidget {
       required this.myController,
       required this.preSwotList,
       required this.swotList,
+      required this.localName,
       this.height = 100})
       : super(key: key);
 
@@ -67,7 +70,9 @@ class _MySwotState extends State<MySwot> {
                     /* widget.swotList.add("•  " + text); */
                     widget.myController.clear();
                     setState(() {
-                      widget.swotList.add("•  " + text);
+                      widget.swotList.add("•  $text");
+                      LocalStorage.prefs
+                          .setStringList(widget.localName, widget.swotList);
                     });
                   }
                 },

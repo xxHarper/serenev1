@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
+import 'package:serenev1/dialogs/my_simple_dialog.dart';
 import 'package:serenev1/modules/module_1/video.dart';
 
 import '../../components/my_simple_app_bar.dart';
@@ -129,6 +130,7 @@ class _QuizState extends State<Quiz> {
   }
 
   Column buildQuestion(Question question) {
+    var isSelected;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -141,18 +143,31 @@ class _QuizState extends State<Quiz> {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         Expanded(
           child: OptionWidget(
             question: question,
             onClikedOption: (option) {
               if (question.isLocked) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return MySimpleDialog(
+                          txt: option.reflection, letter: letter);
+                    });
                 return;
               } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return MySimpleDialog(
+                          txt: option.reflection, letter: letter);
+                    });
                 setState(() {
                   question.isLocked = true;
                   question.selectedOption = option;
+                  isSelected = option == question.selectedOption;
                 });
               }
             },

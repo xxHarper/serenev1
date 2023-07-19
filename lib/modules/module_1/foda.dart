@@ -6,6 +6,7 @@ import 'package:serenev1/modules/module_1/opportunities.dart';
 import 'package:serenev1/modules/module_1/strengths.dart';
 import 'package:serenev1/modules/module_1/threads.dart';
 import 'package:serenev1/modules/module_1/weaknesses.dart';
+import 'package:serenev1/services/local_storage.dart';
 
 class Foda extends StatefulWidget {
   const Foda({Key? key}) : super(key: key);
@@ -21,8 +22,7 @@ class _FodaState extends State<Foda> {
   final String instructions =
       "Ahora que has reflexionado sobre tus metas y has entendido lo importante que es tenerlas, vamos a hacer un ejercicio que te ayudará a comprender por qué es tan crucial que te esfuerces por alcanzarlas. Saber esto puede brindarte una motivación significativa y, cada vez que te sientas tentado a abandonar tu meta, podrás recordar tu \"por qué\".";
 
-  /* List<String> strenghts = [""]; */
-  List<String> strenghts = [];
+  List<String> strenghts = LocalStorage.prefs.getStringList("strenghts") ?? [];
   List<String> preStrenghts = [
     "•  Sabiduría y conocimiento",
     "•  Curiosidad / Interés en el mundo",
@@ -50,7 +50,8 @@ class _FodaState extends State<Foda> {
     "•  Vivacidad / Pasión / Entusiasmo",
   ];
 
-  List<String> weaknesses = [];
+  List<String> weaknesses =
+      LocalStorage.prefs.getStringList("weaknesses") ?? [];
   List<String> preWeaknesses = [
     "•  Ignorancia / Desconocimiento",
     "•  Desinterés / Apatía",
@@ -78,7 +79,8 @@ class _FodaState extends State<Foda> {
     "•  Desaliento / Tibieza"
   ];
 
-  List<String> opportunities = [];
+  List<String> opportunities =
+      LocalStorage.prefs.getStringList("opportunities") ?? [];
   List<String> preOpportunities = [
     "•  Apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
     "•  Apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
@@ -86,7 +88,7 @@ class _FodaState extends State<Foda> {
     "•  Prevención de accidentes y desastres naturales"
   ];
 
-  List<String> threads = [];
+  List<String> threads = LocalStorage.prefs.getStringList("threads") ?? [];
   List<String> preThreads = [
     "•  Falta de apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
     "•  Falta de apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",

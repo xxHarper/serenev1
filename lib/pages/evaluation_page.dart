@@ -49,7 +49,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
     setState(() {
       for (var i = 0; i < nOptions; i++) {
-        _options.add(Option(text: question["option"][i].toString()));
+        _options.add(Option(text: question["option"][i].toString(), reflection: "xd"));
       }
     });
 

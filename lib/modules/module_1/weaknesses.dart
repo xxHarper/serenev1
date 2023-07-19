@@ -38,6 +38,7 @@ class _WeaknessesState extends State<Weaknesses> {
           swot: "Agrega tus debilidades",
           myController: weaknessesController,
           swotList: widget.weaknessesList,
+          localName: "weaknesses",
           preSwotList: widget.preWeaknessesList,
         ));
   }

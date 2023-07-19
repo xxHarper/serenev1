@@ -20,29 +20,46 @@ class OptionWidget extends StatelessWidget {
   }
 
   Widget buildOption(BuildContext context, Option option) {
+    final bool vis = true;
     final color = getColorForOption(option, question);
-    return GestureDetector(
-      onTap: () => onClikedOption(option),
-      child: Container(
-        height: 50,
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            /* border: Border.all(color: Colors.grey)), */
-            border: Border.all(color: color)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-              child: Text(
-                option.text,
-                style: const TextStyle(fontSize: 18),
-              ),
-            )
-          ],
+    final isSelected = option == question.selectedOption;
+
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () => onClikedOption(option),
+          child: Container(
+            height: 40,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                /* border: Border.all(color: Colors.grey)), */
+                border: Border.all(color: color, width: 2)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: Text(
+                    option.text,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+        /* Container(
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          /* color: Colors.red, */
+          child: Text(
+            isSelected ? option.reflection : "",
+            style: TextStyle(fontSize: 20),
+          ),
+        ) */
+      ],
     );
   }
 

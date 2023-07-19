@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:serenev1/services/local_storage.dart';
 
 class CheckboxList extends StatefulWidget {
   bool checkboxValue;
   final String txt;
   final Color back;
+  final String localName;
   CheckboxList(
       {Key? key,
       required this.checkboxValue,
+      required this.localName,
       required this.txt,
       required this.back})
       : super(key: key);
@@ -26,6 +29,7 @@ class _CheckboxListState extends State<CheckboxList> {
       onChanged: (bool? value) {
         setState(() {
           widget.checkboxValue = value!;
+          LocalStorage.prefs.setBool(widget.localName, value!);
         });
       },
       title: Text(

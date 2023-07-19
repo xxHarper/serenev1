@@ -37,6 +37,7 @@ class _ThreadsState extends State<Threads> {
         swot: "Agrega tus amenazas",
         myController: threadsController,
         swotList: widget.threadsList,
+        localName: "threads",
         preSwotList: widget.preThreadsList,
         height: 130,
       ),

@@ -41,6 +41,7 @@ class _OpportunitiesState extends State<Opportunities> {
           myController: opportunitiesController,
           preSwotList: widget.preOpportunitiesList,
           swotList: widget.opportunitiesList,
+          localName: "opportunities",
           height: 130,
         ));
   }
