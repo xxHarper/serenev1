@@ -5,19 +5,24 @@ class MyTopModuleTitle extends StatelessWidget {
   final Color letter;
   final Color lightBackground;
   final double height;
+  final double vertical;
+  final double horizontal;
 
   const MyTopModuleTitle(
       {Key? key,
       required this.title,
       required this.letter,
-      required this.lightBackground, this.height = 100})
+      required this.lightBackground,
+      this.height = 100,
+      this.vertical = 5,
+      this.horizontal = 12})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+      margin: EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
       height: height,
       width: double.infinity,
       color: lightBackground,

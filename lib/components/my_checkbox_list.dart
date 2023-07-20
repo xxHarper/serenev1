@@ -6,13 +6,16 @@ class CheckboxList extends StatefulWidget {
   final String txt;
   final Color back;
   final String localName;
-  CheckboxList(
-      {Key? key,
-      required this.checkboxValue,
-      required this.localName,
-      required this.txt,
-      required this.back})
-      : super(key: key);
+  final bool enabled;
+
+  CheckboxList({
+    Key? key,
+    required this.checkboxValue,
+    this.localName = "",
+    required this.txt,
+    required this.back,
+    this.enabled = false,
+  }) : super(key: key);
 
   @override
   _CheckboxListState createState() => _CheckboxListState();
@@ -26,12 +29,14 @@ class _CheckboxListState extends State<CheckboxList> {
       activeColor: widget.back,
       controlAffinity: ListTileControlAffinity.leading,
       value: widget.checkboxValue,
-      onChanged: (bool? value) {
-        setState(() {
-          widget.checkboxValue = value!;
-          LocalStorage.prefs.setBool(widget.localName, value!);
-        });
-      },
+      onChanged: widget.enabled
+          ? null
+          : (bool? value) {
+              setState(() {
+                widget.checkboxValue = value!;
+                LocalStorage.prefs.setBool(widget.localName, value!);
+              });
+            },
       title: Text(
         widget.txt,
         style: const TextStyle(
