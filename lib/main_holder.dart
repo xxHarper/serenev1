@@ -56,14 +56,14 @@ class _MainHolderState extends State<MainHolder> {
         backgroundColor: Color(0xff4F3C75),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.white,
             ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Text(
+        title: const Text(
           'S E R E N E',
           style: TextStyle(color: Colors.white),
         ),

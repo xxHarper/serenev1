@@ -5,13 +5,23 @@ class MyFodaContainer extends StatelessWidget {
   final Color backColor;
   final Color boxShadowColor;
   final double? containerHeight;
+  final Color letterColor;
+  final double topx;
+  final double topy;
+  final double botx;
+  final double boty;
 
   const MyFodaContainer(
       {Key? key,
       required this.txt,
       required this.backColor,
       required this.boxShadowColor,
-      this.containerHeight = 200})
+      this.containerHeight = 200,
+      this.letterColor = Colors.black,
+      required this.topx,
+      required this.topy,
+      required this.botx,
+      required this.boty})
       : super(key: key);
 
   @override
@@ -20,7 +30,14 @@ class MyFodaContainer extends StatelessWidget {
       height: containerHeight!,
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        /* borderRadius: BorderRadius.circular(4), */
+        borderRadius: BorderRadius.only(
+            /* topLeft: Radius.elliptical(topx, topy),
+          bottomRight: Radius.elliptical(botx, boty), */
+            topLeft: Radius.circular(topx),
+            topRight: Radius.circular(topy),
+            bottomLeft: Radius.circular(botx),
+            bottomRight: Radius.circular(boty)),
         color: backColor,
         boxShadow: [
           BoxShadow(
@@ -35,7 +52,8 @@ class MyFodaContainer extends StatelessWidget {
           child: Text(
         txt,
         textAlign: TextAlign.center,
-        style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, fontSize: 18, color: letterColor),
       )),
     );
   }

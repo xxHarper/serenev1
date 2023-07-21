@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:serenev1/auth/terms_of_use.dart';
 import 'package:serenev1/dialogs/policy_dialog.dart';
+import 'package:serenev1/services/local_storage.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -58,6 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
       await FirebaseMessaging.instance.getToken().then((token) {
         setState(() {
           mtoken = token;
+          LocalStorage.prefs.setString("name", _nameControl.text.trim());
         });
         //saveToken(token!);
         addData(
@@ -121,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* backgroundColor: Colors.grey[300], */
-      backgroundColor: Color(0xff6EC6FF),
+      backgroundColor: const Color(0xff6EC6FF),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -130,12 +132,12 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
 
                   // HOLA
-                  Text(
+                  const Text(
                     "Te esperamos!",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -144,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  Text(
+                  const Text(
                     "Ingresa tus datos abajo",
                     style: TextStyle(
                       fontSize: 20,
@@ -152,7 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
 
@@ -161,21 +163,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Agrega tu nombre';
+                            }
+                          },
                           controller: _nameControl,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Nombre", border: InputBorder.none),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -184,21 +191,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Agrega tus apellidos';
+                            }
+                          },
                           controller: _lastNameControl,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Apellidos", border: InputBorder.none),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -207,21 +219,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Agrega tu edad';
+                            }
+                          },
                           controller: _ageControl,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Edad", border: InputBorder.none),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -231,14 +248,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           isExpanded: true,
                           value: civilStatus,
-                          hint: Text("Estado Civil"),
+                          hint: const Text("Estado Civil"),
                           items: civilStatuses.map(buildMenuItem).toList(),
                           onChanged: (value) =>
                               setState(() => this.civilStatus = value),
@@ -247,7 +264,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -257,14 +274,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           isExpanded: true,
                           value: gender,
-                          hint: Text("Género"),
+                          hint: const Text("Género"),
                           items: genders.map(buildMenuItem).toList(),
                           onChanged: (value) =>
                               setState(() => this.gender = value),
@@ -273,7 +290,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -283,14 +300,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           isExpanded: true,
                           value: ocupation,
-                          hint: Text("Ocupación"),
+                          hint: const Text("Ocupación"),
                           items: ocupations.map(buildMenuItem).toList(),
                           onChanged: (value) =>
                               setState(() => this.ocupation = value),
@@ -299,7 +316,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -309,14 +326,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           isExpanded: true,
                           value: education,
-                          hint: Text("Nivel de Educación"),
+                          hint: const Text("Nivel de Educación"),
                           items: educationLevel.map(buildMenuItem).toList(),
                           onChanged: (value) =>
                               setState(() => this.education = value),
@@ -325,7 +342,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -334,21 +351,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Agrega tu correo';
+                            }
+                          },
                           controller: _emailControl,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Correo", border: InputBorder.none),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -357,7 +379,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
@@ -370,14 +392,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                           controller: _passwordControl,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Contraseña", border: InputBorder.none),
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -386,7 +408,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffDFF3FF),
+                          color: const Color(0xffDFF3FF),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
@@ -401,7 +423,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                           controller: _confirmPasswordControl,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Confirmar Contraseña",
                               border: InputBorder.none),
                         ),
@@ -409,11 +431,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
-                  Text(
+                  const Text(
                     textAlign: TextAlign.center,
                     "Al crear una cuenta estás de acuerdo con nuestro",
                     style: TextStyle(fontWeight: FontWeight.normal),
@@ -431,7 +453,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     mdFileName: "privacy_policy.md");
                               });
                         },
-                        child: Text(
+                        child: const Text(
                           textAlign: TextAlign.center,
                           "Aviso de Privacidad y",
                           style: TextStyle(
@@ -453,7 +475,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     mdFileName: "terms_of_use.md");
                               });
                         },
-                        child: Text(
+                        child: const Text(
                           textAlign: TextAlign.center,
                           "Términos y Condiciones",
                           style: TextStyle(
@@ -463,7 +485,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       )),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
@@ -478,11 +500,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                            color: Color(0xff2980B9),
+                            color: const Color(0xff2980B9),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Registrarse",
                             style: TextStyle(
@@ -495,7 +517,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
 
@@ -503,13 +525,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Ya tengo cuenta!",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       GestureDetector(
                         onTap: widget.showLoginPage,
-                        child: Text(
+                        child: const Text(
                           "  Iniciar sesión",
                           style: TextStyle(
                               color: Color(0xff0B5382),
@@ -519,7 +541,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                 ],
@@ -535,7 +557,7 @@ class _RegisterPageState extends State<RegisterPage> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
       );
 }

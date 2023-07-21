@@ -142,11 +142,17 @@ class _FodaState extends State<Foda> {
                             ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: strenghts.isNotEmpty
-                                  ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
-                                  : "Fortalezas",
-                              backColor: Colors.cyan,
-                              boxShadowColor: Colors.cyanAccent),
+                            txt: strenghts.isNotEmpty
+                                ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
+                                : "Fortalezas",
+                            letterColor: Colors.white,
+                            backColor: Colors.cyan,
+                            boxShadowColor: Colors.cyanAccent,
+                            topx: 0,
+                            topy: 360,
+                            botx: 300,
+                            boty: 100,
+                          ),
                         ),
 
                         //THREADS CONTAINER
@@ -162,11 +168,17 @@ class _FodaState extends State<Foda> {
                             ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: threads.isNotEmpty
-                                  ? "Amenazas\n${threads.first}\n${threads.last}"
-                                  : "Amenazas",
-                              backColor: Colors.lightGreen,
-                              boxShadowColor: Colors.lightGreenAccent),
+                            txt: threads.isNotEmpty
+                                ? "Amenazas\n${threads.first}\n${threads.last}"
+                                : "Amenazas",
+                            letterColor: Colors.white,
+                            backColor: Colors.orange,
+                            boxShadowColor: Colors.orangeAccent,
+                            topx: 360,
+                            topy: 0,
+                            botx: 100,
+                            boty: 300,
+                          ),
                         ),
 
                         //OPPORTUNITIES CONTAINER
@@ -182,11 +194,17 @@ class _FodaState extends State<Foda> {
                             ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: opportunities.isNotEmpty
-                                  ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
-                                  : "Oportunidades",
-                              backColor: Colors.grey,
-                              boxShadowColor: Colors.blueGrey),
+                            txt: opportunities.isNotEmpty
+                                ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
+                                : "Oportunidades",
+                            letterColor: Colors.white,
+                            backColor: Colors.lightGreen,
+                            boxShadowColor: Colors.lightGreenAccent,
+                            topx: 360,
+                            topy: 100,
+                            botx: 0,
+                            boty: 300,
+                          ),
                         ),
 
                         //WEAKNESSES CONTAINER
@@ -202,11 +220,17 @@ class _FodaState extends State<Foda> {
                             ).then((value) => setState(() {}));
                           },
                           child: MyFodaContainer(
-                              txt: weaknesses.isNotEmpty
-                                  ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
-                                  : "Debilidades",
-                              backColor: Colors.pink,
-                              boxShadowColor: Colors.pinkAccent),
+                            txt: weaknesses.isNotEmpty
+                                ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
+                                : "Debilidades",
+                            letterColor: Colors.white,
+                            backColor: Colors.pink,
+                            boxShadowColor: Colors.pinkAccent,
+                            topx: 100,
+                            topy: 300,
+                            botx: 360,
+                            boty: 0,
+                          ),
                         ),
                       ],
                     ),
@@ -214,8 +238,8 @@ class _FodaState extends State<Foda> {
                     //ME CONTAINER
                     const Center(
                       child: MyCircularContainer(
-                        size: 150,
-                        back: Colors.orange,
+                        size: 120,
+                          back: Colors.grey,
                         child: Center(child: Text("YO")),
                       ),
                     ),
@@ -283,8 +307,15 @@ class _FodaState extends State<Foda> {
                         builder: (context) => Summary(
                               objetives: objectives,
                               txt: objectivesText,
+                              strenghts: strenghts,
+                              threads: threads,
+                              opportunities: opportunities,
+                              weaknesses: weaknesses,
                             )),
-                  );
+                  ).then((value) => setState(() {
+                        objectives.clear();
+                        objectivesText.clear();
+                      }));
                 },
                 txt: "Continuar",
                 back: back,
