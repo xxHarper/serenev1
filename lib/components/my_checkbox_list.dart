@@ -34,7 +34,7 @@ class _CheckboxListState extends State<CheckboxList> {
           : (bool? value) {
               setState(() {
                 widget.checkboxValue = value!;
-                LocalStorage.prefs.setBool(widget.localName, value!);
+                LocalStorage.prefs.setBool(widget.localName, value);
               });
             },
       title: Text(

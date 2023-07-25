@@ -6,7 +6,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:serenev1/modules/module_1/module_1.dart';
 import 'package:serenev1/pages/evaluation_page.dart';
 
-import '../read-data/get_user_name.dart';
 import '../services/notification_services.dart';
 
 class HomePage extends StatefulWidget {

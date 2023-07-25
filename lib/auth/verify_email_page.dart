@@ -30,7 +30,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       sendVerificationEmail();
 
       timer = Timer.periodic(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
     }
@@ -58,48 +58,48 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     await user.sendEmailVerification();
 
     setState(() => canResendEmail = false);
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     setState(() => canResendEmail = true);
   }
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? MainHolder()
+      ? const MainHolder()
       : Scaffold(
           appBar: AppBar(
-            title: Text("Verifica tu correo electronico"),
+            title: const Text("Verifica tu correo electronico"),
           ),
           body: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Se ha enviado un correo de verificación a tu correo",
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
+                    minimumSize: const Size.fromHeight(50),
                   ),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.email,
                     size: 32,
                   ),
-                  label: Text(
+                  label: const Text(
                     "Reenviar correo",
                     style: TextStyle(fontSize: 24),
                   ),
                   onPressed: canResendEmail ? sendVerificationEmail : null,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TextButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
+                    minimumSize: const Size.fromHeight(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Cancelar",
                     style: TextStyle(fontSize: 24),
                   ),

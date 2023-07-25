@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../main_holder.dart';
+
 class MySimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color back;
   final Color lightBackground;
   final String title;
 
   const MySimpleAppBar(
-      {Key? key, required this.back, required this.lightBackground, this.title = ""})
+      {Key? key,
+      required this.back,
+      required this.lightBackground,
+      this.title = ""})
       : super(key: key);
 
   Future sos() async {
@@ -24,14 +29,35 @@ class MySimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: back,
-      title: Text(title),
-      actions: <Widget>[
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title),
+          IconButton(
+            icon: const Icon(Icons.home),
+            tooltip: 'Volver al menú',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MainHolder()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.call),
+            tooltip: 'Emergencia, 911',
+            onPressed: sos,
+          ),
+        ],
+      ),
+      centerTitle: true,
+      /* actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.call),
           tooltip: 'Emergencia, 911',
           onPressed: sos,
         ),
-      ],
+      ], */
     );
   }
 
