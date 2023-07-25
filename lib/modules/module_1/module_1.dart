@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/detonant.dart';
 
@@ -24,17 +25,18 @@ class _Module1State extends State<Module1> {
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          MyTopModuleTitle(
-              title: "Bloque 1 \nAumenta tu motivación",
-              letter: letter,
-              lightBackground: lightBackground),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-              color: const Color(0XFFE2FFF7),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: Column(
+          /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
+          children: [
+            MyTopModuleTitle(
+                title: "Bloque 1 \nAumenta tu motivación",
+                letter: letter,
+                lightBackground: lightBackground),
+            Expanded(
+                child: MySimpleContainer(
+              lightBackground: lightBackground,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -76,9 +78,61 @@ class _Module1State extends State<Module1> {
                   )
                 ],
               ),
-            ),
-          ),
-        ],
+            )),
+            /* Expanded(
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                /* color: const Color(0XFFE2FFF7), */
+                decoration: BoxDecoration(
+                    color: const Color(0XFFE2FFF7),
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 220,
+                      child: DefaultTextStyle(
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: letter,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                              FadeAnimatedText(welcomeText,
+                                  textAlign: TextAlign.center,
+                                  duration: const Duration(milliseconds: 6000))
+                            ],
+                            repeatForever: true,
+                          )),
+                    ),
+                    Center(
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Detonant()),
+                          );
+                        },
+                        style: OutlinedButton.styleFrom(
+                            fixedSize: const Size.fromWidth(250),
+                            backgroundColor: back,
+                            side: const BorderSide(
+                                width: 2, color: Colors.black)),
+                        child: const Text("Comenzar",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18)),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ), */
+          ],
+        ),
       ),
     );
   }

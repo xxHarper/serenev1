@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:serenev1/components/my_simple_button.dart';
+import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/modules/module_1/quiz.dart';
 import 'package:serenev1/videos/video_screen.dart';
@@ -24,46 +26,40 @@ class _DetonantState extends State<Detonant> {
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
-      body: Column(
-        children: [
-          MyTopModuleTitle(
-              title: "Bloque 1 \nAumenta tu motivación",
-              letter: letter,
-              lightBackground: lightBackground),
-          Expanded(
-            child: Container(
-              color: lightBackground,
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: Column(
+          children: [
+            MyTopModuleTitle(
+                title: "Bloque 1 \nAumenta tu motivación",
+                letter: letter,
+                lightBackground: lightBackground),
+            Expanded(
+                child: MySimpleContainer(
+              lightBackground: lightBackground,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 12),
-                    child: VideoScreen(url),
-                  ),
+                  VideoScreen(url),
                   Center(
-                    child: OutlinedButton(
+                    child: MySimpleButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const Quiz()),
                         );
                       },
-                      style: OutlinedButton.styleFrom(
-                          fixedSize: const Size.fromWidth(250),
-                          backgroundColor: back,
-                          side:
-                              const BorderSide(width: 2, color: Colors.black)),
-                      child: const Text("Continuar",
-                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                      txt: "Continuar",
+                      back: back,
+                      txtColor: Colors.white,
+                      btnWidth: 120,
                     ),
-                  )
+                  ),
                 ],
               ),
-            ),
-          ),
-        ],
+            )),
+          ],
+        ),
       ),
     );
   }

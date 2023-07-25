@@ -27,18 +27,21 @@ class _StrengthsState extends State<Strengths> {
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
-      body: MySwot(
-        back: back,
-        lightBackground: lightBackground,
-        letter: letter,
-        border: border,
-        title:
-            "FORTALEZAS\n(aspectos propios de la persona y deben de ser desarrolladas)",
-        swot: "Agrega tus fortalezas",
-        myController: strengthsController,
-        swotList: widget.strengthsList,
-        localName: "strenghts",
-        preSwotList: widget.preStrengthsList,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: MySwot(
+          back: back,
+          lightBackground: lightBackground,
+          letter: letter,
+          border: border,
+          title:
+              "FORTALEZAS\n(aspectos propios de la persona y deben de ser desarrolladas)",
+          swot: "Agrega tus fortalezas",
+          myController: strengthsController,
+          swotList: widget.strengthsList,
+          localName: "strenghts",
+          preSwotList: widget.preStrengthsList,
+        ),
       ),
     );
   }

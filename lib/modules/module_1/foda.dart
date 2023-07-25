@@ -3,6 +3,7 @@ import 'package:serenev1/components/my_circular_container.dart';
 import 'package:serenev1/components/my_foda_container.dart';
 import 'package:serenev1/components/my_simple_app_bar.dart';
 import 'package:serenev1/components/my_simple_button.dart';
+import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/modules/module_1/opportunities.dart';
 import 'package:serenev1/modules/module_1/strengths.dart';
 import 'package:serenev1/modules/module_1/summary.dart';
@@ -102,16 +103,15 @@ class _FodaState extends State<Foda> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
-      body: Container(
-        color: back,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-          color: lightBackground,
+      backgroundColor: back,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 10.0),
+              // INSTRUCTIONS
+              MySimpleContainer(
+                lightBackground: lightBackground,
                 child: Text(
                   instructions,
                   style: TextStyle(
@@ -119,209 +119,219 @@ class _FodaState extends State<Foda> {
                   textAlign: TextAlign.justify,
                 ),
               ),
-              Center(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    GridView.count(
-                      crossAxisCount: 2,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      children: <Widget>[
-                        //STRENGHTS CONTAINER
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Strengths(
-                                        preStrengthsList: preStrenghts,
-                                        strengthsList: strenghts,
-                                      )),
-                            ).then((value) => setState(() {}));
-                          },
-                          child: MyFodaContainer(
-                            txt: strenghts.isNotEmpty
-                                ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
-                                : "Fortalezas",
-                            letterColor: Colors.white,
-                            backColor: Colors.cyan,
-                            boxShadowColor: Colors.cyanAccent,
-                            topx: 0,
-                            topy: 360,
-                            botx: 300,
-                            boty: 100,
-                          ),
-                        ),
 
-                        //THREADS CONTAINER
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Threads(
-                                        preThreadsList: preThreads,
-                                        threadsList: threads,
-                                      )),
-                            ).then((value) => setState(() {}));
-                          },
-                          child: MyFodaContainer(
-                            txt: threads.isNotEmpty
-                                ? "Amenazas\n${threads.first}\n${threads.last}"
-                                : "Amenazas",
-                            letterColor: Colors.white,
-                            backColor: Colors.orange,
-                            boxShadowColor: Colors.orangeAccent,
-                            topx: 360,
-                            topy: 0,
-                            botx: 100,
-                            boty: 300,
+              // FODA
+              MySimpleContainer(
+                lightBackground: lightBackground,
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      GridView.count(
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        children: <Widget>[
+                          //STRENGHTS CONTAINER
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Strengths(
+                                          preStrengthsList: preStrenghts,
+                                          strengthsList: strenghts,
+                                        )),
+                              ).then((value) => setState(() {}));
+                            },
+                            child: MyFodaContainer(
+                              txt: strenghts.isNotEmpty
+                                  ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
+                                  : "Fortalezas",
+                              letterColor: Colors.white,
+                              backColor: Colors.cyan,
+                              boxShadowColor: Colors.cyanAccent,
+                              topx: 0,
+                              topy: 360,
+                              botx: 300,
+                              boty: 100,
+                            ),
                           ),
-                        ),
 
-                        //OPPORTUNITIES CONTAINER
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Opportunities(
-                                        opportunitiesList: opportunities,
-                                        preOpportunitiesList: preOpportunities,
-                                      )),
-                            ).then((value) => setState(() {}));
-                          },
-                          child: MyFodaContainer(
-                            txt: opportunities.isNotEmpty
-                                ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
-                                : "Oportunidades",
-                            letterColor: Colors.white,
-                            backColor: Colors.lightGreen,
-                            boxShadowColor: Colors.lightGreenAccent,
-                            topx: 360,
-                            topy: 100,
-                            botx: 0,
-                            boty: 300,
+                          //THREADS CONTAINER
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Threads(
+                                          preThreadsList: preThreads,
+                                          threadsList: threads,
+                                        )),
+                              ).then((value) => setState(() {}));
+                            },
+                            child: MyFodaContainer(
+                              txt: threads.isNotEmpty
+                                  ? "Amenazas\n${threads.first}\n${threads.last}"
+                                  : "Amenazas",
+                              letterColor: Colors.white,
+                              backColor: Colors.orange,
+                              boxShadowColor: Colors.orangeAccent,
+                              topx: 360,
+                              topy: 0,
+                              botx: 100,
+                              boty: 300,
+                            ),
                           ),
-                        ),
 
-                        //WEAKNESSES CONTAINER
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Weaknesses(
-                                        preWeaknessesList: preWeaknesses,
-                                        weaknessesList: weaknesses,
-                                      )),
-                            ).then((value) => setState(() {}));
-                          },
-                          child: MyFodaContainer(
-                            txt: weaknesses.isNotEmpty
-                                ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
-                                : "Debilidades",
-                            letterColor: Colors.white,
-                            backColor: Colors.pink,
-                            boxShadowColor: Colors.pinkAccent,
-                            topx: 100,
-                            topy: 300,
-                            botx: 360,
-                            boty: 0,
+                          //OPPORTUNITIES CONTAINER
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Opportunities(
+                                          opportunitiesList: opportunities,
+                                          preOpportunitiesList:
+                                              preOpportunities,
+                                        )),
+                              ).then((value) => setState(() {}));
+                            },
+                            child: MyFodaContainer(
+                              txt: opportunities.isNotEmpty
+                                  ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
+                                  : "Oportunidades",
+                              letterColor: Colors.white,
+                              backColor: Colors.lightGreen,
+                              boxShadowColor: Colors.lightGreenAccent,
+                              topx: 360,
+                              topy: 100,
+                              botx: 0,
+                              boty: 300,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
 
-                    //ME CONTAINER
-                    const Center(
-                      child: MyCircularContainer(
-                        size: 120,
-                          back: Colors.grey,
-                        child: Center(child: Text("YO")),
+                          //WEAKNESSES CONTAINER
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Weaknesses(
+                                          preWeaknessesList: preWeaknesses,
+                                          weaknessesList: weaknesses,
+                                        )),
+                              ).then((value) => setState(() {}));
+                            },
+                            child: MyFodaContainer(
+                              txt: weaknesses.isNotEmpty
+                                  ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
+                                  : "Debilidades",
+                              letterColor: Colors.white,
+                              backColor: Colors.pink,
+                              boxShadowColor: Colors.pinkAccent,
+                              topx: 100,
+                              topy: 300,
+                              botx: 360,
+                              boty: 0,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+
+                      //ME CONTAINER
+                      const Center(
+                        child: MyCircularContainer(
+                          size: 120,
+                          back: Colors.grey,
+                          child: Center(child: Text("YO")),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              MySimpleButton(
-                onPressed: () {
-                  List<bool> cboxes = [];
-                  List<bool> objectives = [];
-                  List<String> cboxesText = [];
-                  List<String> objectivesText = [];
 
-                  cboxes.add(LocalStorage.prefs.getBool("cbox1") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox2") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox3") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox4") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox5") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox6") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox7") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox8") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox9") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox10") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox11") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox12") ?? false);
-                  cboxes.add(LocalStorage.prefs.getBool("cbox13") ?? false);
+              // BUTTON
+              MySimpleContainer(padding: 0,
+                  lightBackground: lightBackground,
+                  child: MySimpleButton(
+                    onPressed: () {
+                      List<bool> cboxes = [];
+                      List<bool> objectives = [];
+                      List<String> cboxesText = [];
+                      List<String> objectivesText = [];
 
-                  cboxesText.add(
-                      "Aprender técnicas de relajación para reducir el estrés de manera efectiva.");
-                  cboxesText.add(
-                      "Mejorar la habilidad de comunicación interpersonal para establecer relaciones más saludables y satisfactorias.");
-                  cboxesText.add(
-                      "Optimizar la calidad y duración de mi descanso para mejorar mi bienestar general.");
-                  cboxesText.add(
-                      "Desarrollar habilidades para manejar y regular mis emociones de forma saludable y equilibrada.");
-                  cboxesText
-                      .add("Fortalecer mi autoestima y confianza personal.");
-                  cboxesText.add(
-                      "Implementar estrategias efectivas para gestionar conflictos de manera constructiva.");
-                  cboxesText.add(
-                      "Incorporar regularmente técnicas de mindfulness para aumentar la conciencia plena.");
-                  cboxesText.add(
-                      "Adoptar hábitos que promuevan mi bienestar físico y mental.");
-                  cboxesText.add(
-                      "Desarrollar la capacidad de adaptación y flexibilidad ante situaciones cambiantes.");
-                  cboxesText.add(
-                      "Aprender a establecer límites personales de manera clara y asertiva.");
-                  cboxesText.add(
-                      "Ampliar mi autoconocimiento para comprender mejor mis necesidades emocionales y satisfacerlas.");
-                  cboxesText.add(
-                      "Mejorar mi habilidad para administrar el tiempo de manera eficiente y evitar la procrastinación.");
-                  cboxesText.add(
-                      "Promover la participación en actividades que incrementen mi bienestar emocional y disfrute personal.");
+                      cboxes.add(LocalStorage.prefs.getBool("cbox1") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox2") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox3") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox4") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox5") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox6") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox7") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox8") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox9") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox10") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox11") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox12") ?? false);
+                      cboxes.add(LocalStorage.prefs.getBool("cbox13") ?? false);
 
-                  for (var i = 0; i < cboxes.length; i++) {
-                    if (cboxes[i]) {
-                      objectives.add(cboxes[i]);
-                      objectivesText.add(cboxesText[i]);
-                    }
-                  }
+                      cboxesText.add(
+                          "Aprender técnicas de relajación para reducir el estrés de manera efectiva.");
+                      cboxesText.add(
+                          "Mejorar la habilidad de comunicación interpersonal para establecer relaciones más saludables y satisfactorias.");
+                      cboxesText.add(
+                          "Optimizar la calidad y duración de mi descanso para mejorar mi bienestar general.");
+                      cboxesText.add(
+                          "Desarrollar habilidades para manejar y regular mis emociones de forma saludable y equilibrada.");
+                      cboxesText.add(
+                          "Fortalecer mi autoestima y confianza personal.");
+                      cboxesText.add(
+                          "Implementar estrategias efectivas para gestionar conflictos de manera constructiva.");
+                      cboxesText.add(
+                          "Incorporar regularmente técnicas de mindfulness para aumentar la conciencia plena.");
+                      cboxesText.add(
+                          "Adoptar hábitos que promuevan mi bienestar físico y mental.");
+                      cboxesText.add(
+                          "Desarrollar la capacidad de adaptación y flexibilidad ante situaciones cambiantes.");
+                      cboxesText.add(
+                          "Aprender a establecer límites personales de manera clara y asertiva.");
+                      cboxesText.add(
+                          "Ampliar mi autoconocimiento para comprender mejor mis necesidades emocionales y satisfacerlas.");
+                      cboxesText.add(
+                          "Mejorar mi habilidad para administrar el tiempo de manera eficiente y evitar la procrastinación.");
+                      cboxesText.add(
+                          "Promover la participación en actividades que incrementen mi bienestar emocional y disfrute personal.");
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Summary(
-                              objetives: objectives,
-                              txt: objectivesText,
-                              strenghts: strenghts,
-                              threads: threads,
-                              opportunities: opportunities,
-                              weaknesses: weaknesses,
-                            )),
-                  ).then((value) => setState(() {
-                        objectives.clear();
-                        objectivesText.clear();
-                      }));
-                },
-                txt: "Continuar",
-                back: back,
-                txtColor: Colors.white,
-                btnWidth: 120,
-              )
+                      for (var i = 0; i < cboxes.length; i++) {
+                        if (cboxes[i]) {
+                          objectives.add(cboxes[i]);
+                          objectivesText.add(cboxesText[i]);
+                        }
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Summary(
+                                  objetives: objectives,
+                                  txt: objectivesText,
+                                  strenghts: strenghts,
+                                  threads: threads,
+                                  opportunities: opportunities,
+                                  weaknesses: weaknesses,
+                                )),
+                      ).then((value) => setState(() {
+                            objectives.clear();
+                            objectivesText.clear();
+                          }));
+                    },
+                    txt: "Continuar",
+                    back: back,
+                    txtColor: Colors.white,
+                    btnWidth: 120,
+                  )),
             ],
           ),
         ),

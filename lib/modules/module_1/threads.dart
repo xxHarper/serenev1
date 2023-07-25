@@ -27,19 +27,22 @@ class _ThreadsState extends State<Threads> {
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
-      body: MySwot(
-        back: back,
-        lightBackground: lightBackground,
-        letter: letter,
-        border: border,
-        title:
-            "AMENAZAS\n(aspectos que dependen del entorno de las personas, se deben identificar y prevenir)",
-        swot: "Agrega tus amenazas",
-        myController: threadsController,
-        swotList: widget.threadsList,
-        localName: "threads",
-        preSwotList: widget.preThreadsList,
-        height: 130,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: MySwot(
+          back: back,
+          lightBackground: lightBackground,
+          letter: letter,
+          border: border,
+          title:
+              "AMENAZAS\n(aspectos que dependen del entorno de las personas, se deben identificar y prevenir)",
+          swot: "Agrega tus amenazas",
+          myController: threadsController,
+          swotList: widget.threadsList,
+          localName: "threads",
+          preSwotList: widget.preThreadsList,
+          height: 130,
+        ),
       ),
     );
   }

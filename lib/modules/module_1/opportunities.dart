@@ -30,19 +30,22 @@ class _OpportunitiesState extends State<Opportunities> {
     return Scaffold(
         appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
         backgroundColor: back,
-        body: MySwot(
-          back: back,
-          lightBackground: lightBackground,
-          letter: letter,
-          border: border,
-          title:
-              "OPORTUNIDADES\n(aspectos que dependen del entorno de las personas y se deben sacar provecho de estas)",
-          swot: "Agrega tus oportunidades",
-          myController: opportunitiesController,
-          preSwotList: widget.preOpportunitiesList,
-          swotList: widget.opportunitiesList,
-          localName: "opportunities",
-          height: 130,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          child: MySwot(
+            back: back,
+            lightBackground: lightBackground,
+            letter: letter,
+            border: border,
+            title:
+                "OPORTUNIDADES\n(aspectos que dependen del entorno de las personas y se deben sacar provecho de estas)",
+            swot: "Agrega tus oportunidades",
+            myController: opportunitiesController,
+            preSwotList: widget.preOpportunitiesList,
+            swotList: widget.opportunitiesList,
+            localName: "opportunities",
+            height: 130,
+          ),
         ));
   }
 }

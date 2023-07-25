@@ -28,18 +28,21 @@ class _WeaknessesState extends State<Weaknesses> {
     return Scaffold(
         appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
         backgroundColor: back,
-        body: MySwot(
-          back: back,
-          lightBackground: lightBackground,
-          letter: letter,
-          border: border,
-          title:
-              "DEBILIDADES\n(aspectos propios de la persona y deben ser superadas)",
-          swot: "Agrega tus debilidades",
-          myController: weaknessesController,
-          swotList: widget.weaknessesList,
-          localName: "weaknesses",
-          preSwotList: widget.preWeaknessesList,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          child: MySwot(
+            back: back,
+            lightBackground: lightBackground,
+            letter: letter,
+            border: border,
+            title:
+                "DEBILIDADES\n(aspectos propios de la persona y deben ser superadas)",
+            swot: "Agrega tus debilidades",
+            myController: weaknessesController,
+            swotList: widget.weaknessesList,
+            localName: "weaknesses",
+            preSwotList: widget.preWeaknessesList,
+          ),
         ));
   }
 }

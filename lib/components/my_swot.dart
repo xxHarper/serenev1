@@ -54,7 +54,6 @@ class _MySwotState extends State<MySwot> {
 
             // SHOW THE LIST OF ...
             MyFodaListviewBuilder(
-                /* list: widget.swotList, */
                 list: widget.swotList.isNotEmpty
                     ? widget.swotList
                     : widget.preSwotList,
@@ -67,7 +66,6 @@ class _MySwotState extends State<MySwot> {
                 onSubmitted: (text) {
                   if (text == "") {
                   } else {
-                    /* widget.swotList.add("•  " + text); */
                     widget.myController.clear();
                     setState(() {
                       widget.swotList.add("•  $text");

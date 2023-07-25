@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/components/my_simple_button.dart';
+import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
 import 'package:serenev1/dialogs/my_simple_dialog_list.dart';
 import 'package:serenev1/main_holder.dart';
@@ -47,17 +48,12 @@ class Summary extends StatelessWidget {
                 title: "Resumen",
                 letter: letter,
                 lightBackground: lightBackground,
-                vertical: 0,
-                horizontal: 0,
                 height: 50,
               ),
 
               //OBJETIVES
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.all(12),
-                width: double.infinity,
-                color: lightBackground,
+              MySimpleContainer(
+                lightBackground: lightBackground,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,10 +89,8 @@ class Summary extends StatelessWidget {
               ),
 
               //FODA
-              Container(
-                color: lightBackground,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.all(12),
+              MySimpleContainer(
+                lightBackground: lightBackground,
                 child: Center(
                   child: Stack(
                     alignment: Alignment.center,
@@ -211,8 +205,9 @@ class Summary extends StatelessWidget {
               ),
 
               //HOME BUTTON
-              Container(
-                color: lightBackground,
+              MySimpleContainer(
+                padding: 0,
+                lightBackground: lightBackground,
                 child: MySimpleButton(
                   onPressed: () {
                     Navigator.push(
@@ -226,7 +221,7 @@ class Summary extends StatelessWidget {
                   txtColor: Colors.white,
                   btnWidth: 120,
                 ),
-              )
+              ),
             ],
           ),
         ),

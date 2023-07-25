@@ -22,11 +22,12 @@ class MySimpleButton extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             fixedSize: Size.fromWidth(btnWidth!),
             backgroundColor: back,
             side: const BorderSide(width: 2, color: Colors.black)),
-        child:
-            Text("Continuar", style: TextStyle(color: txtColor, fontSize: 18)),
+        child: Text(txt, style: TextStyle(color: txtColor, fontSize: 18)),
       ),
     );
   }

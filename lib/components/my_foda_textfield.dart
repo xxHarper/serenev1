@@ -34,7 +34,6 @@ class _MyFodaTextfieldState extends State<MyFodaTextfield> {
             color: widget.lightBackground,
             border: Border.all(color: Colors.white),
             borderRadius: BorderRadius.circular(20)),
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
         child: TextField(
           controller: widget.textController,
           onSubmitted: widget.onSubmitted,
@@ -56,11 +55,8 @@ class _MyFodaTextfieldState extends State<MyFodaTextfield> {
             hintText: widget.hint,
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
                 borderSide: BorderSide(width: 2, color: widget.border)),
-            /* enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2, color: Colors.redAccent)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))), */
           ),
         ));
   }
