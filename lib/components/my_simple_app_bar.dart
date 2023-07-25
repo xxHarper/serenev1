@@ -37,10 +37,10 @@ class MySimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.home),
             tooltip: 'Volver al menú',
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainHolder()),
-              );
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MainHolder()),
+                  (route) => false);
             },
           ),
           IconButton(

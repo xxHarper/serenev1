@@ -2,9 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:serenev1/components/my_simple_button.dart';
+import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/pages/results_page.dart';
 
 import '../components/my_simple_app_bar.dart';
+import '../components/my_top_module_title.dart';
 import '../models/question_model.dart';
 import '../services/local_storage.dart';
 import '../models/option_widget.dart';
@@ -22,9 +26,11 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   List _items = [];
   List<Question> questions = [];
+  double percent = 0.0;
 
-  final Color back = const Color(0xff4293BF);
-  final Color lightBackground = const Color(0xffE2F5FF);
+  final Color back = const Color(0xffBF426A);
+  final Color lightBackground = const Color(0xffFFE2EA);
+  final Color letter = const Color(0xff903A57);
 
   Future readJson() async {
     final String response =
@@ -49,7 +55,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
     setState(() {
       for (var i = 0; i < nOptions; i++) {
-        _options.add(Option(text: question["option"][i].toString(), reflection: "xd"));
+        _options.add(
+            Option(text: question["option"][i].toString(), reflection: "xd"));
       }
     });
 
@@ -80,65 +87,137 @@ class _EvaluationPageState extends State<EvaluationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MySimpleAppBar(
-          back: back,
-          title: "Evaluación Previa",
-          lightBackground: lightBackground),
-      /* AppBar(
-        title: Text("Evaluación Previa"),
-        backgroundColor: Color(0xff4293BF),
-      ) */
-      body: Container(
-        width: double.infinity,
-        /* BACKGROUND COLOR  */
-        color: Color(0xff4293BF),
-        child: Container(
-          color: Color(0xffE2F5FF),
-          /* margin: EdgeInsets.all(15.0), */
-          margin: EdgeInsets.symmetric(vertical: 25, horizontal: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text("Pregunta $_questionNumber/${_items.length}"),
-              Divider(
-                thickness: 1,
-                color: Colors.grey,
-              ),
-              Expanded(
-                child: PageView.builder(
-                  controller: _controller,
-                  itemCount: _items.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final _question = questions[index];
-                    return buildQuestion(_question);
-                  },
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        _controller!.previousPage(
-                            duration: Duration(milliseconds: 50),
-                            curve: Curves.easeInExpo);
+      appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
+      backgroundColor: back,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MyTopModuleTitle(
+                height: 50,
+                title: "Evaluación Previa",
+                letter: letter,
+                lightBackground: lightBackground),
 
-                        setState(() {
-                          if (_questionNumber > 1) {
-                            _questionNumber--;
-                          }
+            // QUIZ
+            Expanded(
+              child: MySimpleContainer(
+                  lightBackground: lightBackground,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // CONTADOR
+                      Text(
+                        "Pregunta $_questionNumber/${_items.length}",
+                        style: TextStyle(
+                          color: letter,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
 
-                          LocalStorage.prefs
-                              .setInt("questionNumber", _questionNumber);
-                        });
-                      },
-                      child: Text("Anterior")),
-                  buildElevatedButton(),
-                ],
-              ),
-            ],
-          ),
+                      // PROGRESS BAR
+                      LinearPercentIndicator(
+                        animation: true,
+                        animateFromLastPercent: true,
+                        animationDuration: 1000,
+                        lineHeight: 20,
+                        percent: percent,
+                        progressColor: letter,
+                        backgroundColor: Colors.pink.shade100,
+                        center: const Text(
+                          "10%",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+
+                      // DIVISON LINE
+                      Divider(
+                        thickness: 1,
+                        color: letter,
+                      ),
+
+                      // QUESTIONS
+                      Expanded(
+                        child: PageView.builder(
+                          controller: _controller,
+                          itemCount: _items.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final _question = questions[index];
+                            return buildQuestion(_question);
+                          },
+                        ),
+                      ),
+
+                      // BUTTONS
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // BACK BUTTON
+                          Visibility(
+                            visible: _questionNumber > 1 ? true : false,
+                            child: MySimpleButton(
+                              onPressed: () {
+                                _controller!.previousPage(
+                                    duration: const Duration(milliseconds: 50),
+                                    curve: Curves.easeInExpo);
+
+                                setState(() {
+                                  if (_questionNumber > 1) {
+                                    _questionNumber--;
+                                    percent -= 0.1;
+                                  }
+
+                                  LocalStorage.prefs.setInt(
+                                      "questionNumber", _questionNumber);
+                                });
+                              },
+                              txt: "Anterior",
+                              back: back,
+                              txtColor: Colors.white,
+                              btnWidth: 110,
+                            ),
+                          ),
+
+                          // NEXT BUTTON
+                          MySimpleButton(
+                            onPressed: () {
+                              if (_questionNumber < questions.length) {
+                                /* readJson(); */
+                                _controller!.nextPage(
+                                    duration: const Duration(milliseconds: 50),
+                                    curve: Curves.easeInExpo);
+
+                                setState(() {
+                                  percent += 0.1;
+                                  _questionNumber++;
+                                  /* print("VALE ESTO: ${_questionNumber}"); */
+                                  LocalStorage.prefs.setInt(
+                                      "questionNumber", _questionNumber);
+                                });
+                              } else {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ResultsPage()));
+                              }
+                            },
+                            txt: _questionNumber < questions.length
+                                ? "Siguiente"
+                                : "Ver Resultado",
+                            back: back,
+                            txtColor: Colors.white,
+                            btnWidth: 110,
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+            ),
+          ],
         ),
       ),
     );

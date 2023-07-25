@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class VideoScreen extends StatefulWidget {
   String url;
-  VideoScreen(this.url,{Key? key}) : super(key: key);
+  final bool autoPlay;
+  VideoScreen(this.url, {Key? key, this.autoPlay = true}) : super(key: key);
 
   @override
   State<VideoScreen> createState() => _VideoScreenState();
@@ -26,11 +27,14 @@ class _VideoScreenState extends State<VideoScreen> {
     // TODO: implement initState
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-            autoPlay: true, aspectRatio: 16 / 9, fit: BoxFit.contain);
+            autoPlay: widget.autoPlay,
+            aspectRatio: 16 / 9,
+            fit: BoxFit.contain);
 
     BetterPlayerDataSourceType type = BetterPlayerDataSourceType.network;
 
-    BetterPlayerDataSource dataSource = BetterPlayerDataSource(type, widget.url);
+    BetterPlayerDataSource dataSource =
+        BetterPlayerDataSource(type, widget.url);
 
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
 

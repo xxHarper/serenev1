@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/modules/module_1/module_1.dart';
 import 'package:serenev1/pages/evaluation_page.dart';
+import 'package:serenev1/pages/evaluation_video.dart';
 
 import '../services/notification_services.dart';
 
@@ -88,37 +90,35 @@ class _HomePageState extends State<HomePage> {
         );
   }
 
+  final Color back = const Color(0xff4F3C75);
+  final Color lightBackground = const Color(0xffDDCCFE);
+  final Color letter = const Color(0xff903A57);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff4F3C75),
+      backgroundColor: back,
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Evaluacion Previa
           Container(
-              color: Color(0xffDDCCFE),
-              height: 100,
-              child: Center(
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EvaluationPage()),
-                    );
-                  },
-                  child: Text("Evaluación Previa",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  style: OutlinedButton.styleFrom(
-                      fixedSize: Size.fromWidth(250),
-                      backgroundColor: Color(0xff4F3C75),
-                      side: BorderSide(width: 2, color: Colors.black)),
-                ),
-              )),
+            height: 100,
+            color: lightBackground,
+            child: MySimpleButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EvaluationVideo()),
+                  );
+                },
+                txt: "Evaluación Previa",
+                back: back,
+                txtColor: Colors.white),
+          ),
 
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
 
