@@ -51,14 +51,6 @@ class OptionWidget extends StatelessWidget {
             ),
           ),
         ),
-        /* Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-          /* color: Colors.red, */
-          child: Text(
-            isSelected ? option.reflection : "",
-            style: TextStyle(fontSize: 20),
-          ),
-        ) */
       ],
     );
   }

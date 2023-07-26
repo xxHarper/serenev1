@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:serenev1/components/my_radio_list.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/pages/results_page.dart';
@@ -31,6 +32,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
   final Color back = const Color(0xffBF426A);
   final Color lightBackground = const Color(0xffFFE2EA);
   final Color letter = const Color(0xff903A57);
+  final Color backBar = Colors.pink.shade100;
+
+  bool ejemplo = false;
 
   Future readJson() async {
     final String response =
@@ -125,10 +129,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         lineHeight: 20,
                         percent: percent,
                         progressColor: letter,
-                        backgroundColor: Colors.pink.shade100,
-                        center: const Text(
-                          "10%",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        backgroundColor: backBar,
+                        center: Text(
+                          "${percent * 100}%",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
 
@@ -138,8 +142,37 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         color: letter,
                       ),
 
-                      // QUESTIONS
+                      // TESTING
                       Expanded(
+                        child: PageView.builder(
+                          controller: _controller,
+                          itemCount: _items.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final _question = questions[index];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  questions[index].text,
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                Expanded(
+                                  child: MyRadioList(
+                                      back: back,
+                                      options: ["Hola", "Adios"],
+                                      valueBool: ejemplo),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+
+                      // QUESTIONS
+                      /* Expanded(
                         child: PageView.builder(
                           controller: _controller,
                           itemCount: _items.length,
@@ -149,7 +182,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                             return buildQuestion(_question);
                           },
                         ),
-                      ),
+                      ), */
 
                       // BUTTONS
                       Row(
@@ -161,7 +194,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                             child: MySimpleButton(
                               onPressed: () {
                                 _controller!.previousPage(
-                                    duration: const Duration(milliseconds: 50),
+                                    duration: const Duration(milliseconds: 400),
                                     curve: Curves.easeInExpo);
 
                                 setState(() {
@@ -187,7 +220,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                               if (_questionNumber < questions.length) {
                                 /* readJson(); */
                                 _controller!.nextPage(
-                                    duration: const Duration(milliseconds: 50),
+                                    duration: const Duration(milliseconds: 400),
                                     curve: Curves.easeInExpo);
 
                                 setState(() {
