@@ -1,18 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:serenev1/components/my_radio_list.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
+import 'package:serenev1/models/pre_assessment.dart';
 import 'package:serenev1/pages/results_page.dart';
 
 import '../components/my_simple_app_bar.dart';
 import '../components/my_top_module_title.dart';
-import '../models/question_model.dart';
 import '../services/local_storage.dart';
-import '../models/option_widget.dart';
 
 class EvaluationPage extends StatefulWidget {
   const EvaluationPage({Key? key}) : super(key: key);
@@ -25,8 +21,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
   int _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
   PageController? _controller;
 
-  List _items = [];
   List<Question> questions = [];
+  List<Option> options = [];
   double percent = 0.0;
 
   final Color back = const Color(0xffBF426A);
@@ -36,36 +32,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   bool ejemplo = false;
 
-  Future readJson() async {
-    final String response =
-        await rootBundle.loadString("assets/sociodemographic.json");
-    final data = await json.decode(response);
-
-    setState(() {
-      _items = data["sociodemographic"];
-
-      _items.forEach((question) {
-        questions.add(Question(
-            text: question["question"],
-            options: readOptions(question["option"].length, question)));
-        /* print(question["question"]);
-        print(question["option"].length); */
-      });
+  readQuestions() {
+    sociodemographic.forEach((question) {
+      questions.add(Question(text: question.text, options: question.options));
     });
-  }
-
-  readOptions(int nOptions, question) {
-    List<Option> _options = [];
-
-    setState(() {
-      for (var i = 0; i < nOptions; i++) {
-        _options.add(
-            Option(text: question["option"][i].toString(), reflection: "xd"));
-      }
-    });
-
-    /* print("OPCIONES: ${_options}"); */
-    return _options;
   }
 
   @override
@@ -78,8 +48,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
           PageController(initialPage: _questionNumber, keepPage: true);
     });
 
-    print("NUMERO: ${_questionNumber - 1}");
-    readJson();
+    readQuestions();
   }
 
   @override
@@ -113,7 +82,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                     children: [
                       // CONTADOR
                       Text(
-                        "Pregunta $_questionNumber/${_items.length}",
+                        "Pregunta $_questionNumber/${questions.length}",
                         style: TextStyle(
                           color: letter,
                           fontSize: 15,
@@ -146,14 +115,15 @@ class _EvaluationPageState extends State<EvaluationPage> {
                       Expanded(
                         child: PageView.builder(
                           controller: _controller,
-                          itemCount: _items.length,
+                          /* itemCount: _items.length, */
+                          itemCount: sociodemographic.length,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            final _question = questions[index];
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
+                                  /* questions[index].text, */
                                   questions[index].text,
                                   style: const TextStyle(
                                       fontSize: 22,
@@ -161,8 +131,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                 ),
                                 Expanded(
                                   child: MyRadioList(
+                                      question: questions[index],
                                       back: back,
-                                      options: ["Hola", "Adios"],
+                                      options: questions[index].options,
                                       valueBool: ejemplo),
                                 ),
                               ],
@@ -170,19 +141,6 @@ class _EvaluationPageState extends State<EvaluationPage> {
                           },
                         ),
                       ),
-
-                      // QUESTIONS
-                      /* Expanded(
-                        child: PageView.builder(
-                          controller: _controller,
-                          itemCount: _items.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final _question = questions[index];
-                            return buildQuestion(_question);
-                          },
-                        ),
-                      ), */
 
                       // BUTTONS
                       Row(
@@ -226,7 +184,6 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                 setState(() {
                                   percent += 0.1;
                                   _questionNumber++;
-                                  /* print("VALE ESTO: ${_questionNumber}"); */
                                   LocalStorage.prefs.setInt(
                                       "questionNumber", _questionNumber);
                                 });
@@ -254,58 +211,5 @@ class _EvaluationPageState extends State<EvaluationPage> {
         ),
       ),
     );
-  }
-
-  Column buildQuestion(Question question) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          question.text,
-          style: TextStyle(fontSize: 25),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          child: OptionWidget(
-            question: question,
-            onClikedOption: (option) {
-              if (question.isLocked) {
-                return;
-              } else {
-                setState(() {
-                  question.isLocked = true;
-                  question.selectedOption = option;
-                });
-              }
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  ElevatedButton buildElevatedButton() {
-    return ElevatedButton(
-        onPressed: () {
-          if (_questionNumber < questions.length) {
-            /* readJson(); */
-            _controller!.nextPage(
-                duration: Duration(milliseconds: 50), curve: Curves.easeInExpo);
-
-            setState(() {
-              _questionNumber++;
-              print("VALE ESTO: ${_questionNumber}");
-              LocalStorage.prefs.setInt("questionNumber", _questionNumber);
-            });
-          } else {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => ResultsPage()));
-          }
-        },
-        child: Text(_questionNumber < questions.length
-            ? "Siguiente"
-            : "Ver Resultado"));
   }
 }

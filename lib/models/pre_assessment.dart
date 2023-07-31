@@ -1,14 +1,10 @@
 class Question {
   final String text;
   final List<Option> options;
-  bool isLocked;
-  Option? selectedOption;
 
-  Question(
-      {required this.text,
-      required this.options,
-      this.isLocked = false,
-      this.selectedOption});
+  String? selectedOption = "";
+
+  Question({required this.text, required this.options, this.selectedOption});
 }
 
 class Option {
@@ -19,7 +15,11 @@ class Option {
   });
 }
 
-final questions = [
+void saveAnswer(Question question, String option) {
+  question.selectedOption = option;
+}
+
+final sociodemographic = [
   Question(text: "Lugar de residencia:", options: [
     const Option(
       text: "Adios",
@@ -29,7 +29,7 @@ final questions = [
     )
   ]),
   Question(
-      text: "¿Actualmente está en tratamiento psicológico o psiquiátrico?:",
+      text: "¿Actualmente está en tratamiento psicológico o psiquiátrico?",
       options: [
         const Option(
           text: "Si",

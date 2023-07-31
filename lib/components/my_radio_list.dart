@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:serenev1/models/pre_assessment.dart';
 
 class MyRadioList extends StatefulWidget {
-  final List<String> options;
+  final Question question;
+  final List<Option> options;
   final bool valueBool;
   final Color back;
 
   const MyRadioList(
       {Key? key,
+      required this.question,
       required this.options,
       required this.valueBool,
       required this.back})
@@ -33,14 +36,15 @@ class _MyRadioListState extends State<MyRadioList> {
           child: RadioListTile(
             activeColor: widget.back,
             title: Text(
-              widget.options[index],
+              widget.options[index].text,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            value: widget.options[index],
-            groupValue: _selectedOption,
+            value: widget.options[index].text,
+            groupValue: widget.question.selectedOption,
             onChanged: (String? value) {
               setState(() {
                 _selectedOption = value!;
+                saveAnswer(widget.question, value);
               });
             },
           ),
