@@ -23,18 +23,29 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   List<Question> questions = [];
   List<Option> options = [];
-  double percent = 0.0;
+  double percent = LocalStorage.prefs.getDouble("percent") ?? 0.0;
 
   final Color back = const Color(0xffBF426A);
   final Color lightBackground = const Color(0xffFFE2EA);
   final Color letter = const Color(0xff903A57);
   final Color backBar = Colors.pink.shade100;
 
-  bool ejemplo = false;
+  List<String> keys = [];
 
   readQuestions() {
+    int i = 0;
+    keys.clear();
     sociodemographic.forEach((question) {
-      questions.add(Question(text: question.text, options: question.options));
+      keys.add("answer$i");
+      saveAnswer(
+          question, LocalStorage.prefs.getString("answer$i") ?? "", "answer$i");
+
+      questions.add(Question(
+          text: question.text,
+          options: question.options,
+          selectedOption: question.selectedOption));
+
+      i++;
     });
   }
 
@@ -43,12 +54,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
     super.initState();
 
     setState(() {
+      readQuestions();
       _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
-      _controller =
-          PageController(initialPage: _questionNumber, keepPage: true);
+      _controller = PageController(initialPage: _questionNumber - 1);
     });
-
-    readQuestions();
   }
 
   @override
@@ -111,19 +120,20 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         color: letter,
                       ),
 
-                      // TESTING
+                      // TEST
                       Expanded(
                         child: PageView.builder(
                           controller: _controller,
-                          /* itemCount: _items.length, */
                           itemCount: sociodemographic.length,
                           physics: const NeverScrollableScrollPhysics(),
+                          onPageChanged: (index) {
+                            setState(() {});
+                          },
                           itemBuilder: (context, index) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  /* questions[index].text, */
                                   questions[index].text,
                                   style: const TextStyle(
                                       fontSize: 22,
@@ -131,10 +141,11 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                 ),
                                 Expanded(
                                   child: MyRadioList(
-                                      question: questions[index],
-                                      back: back,
-                                      options: questions[index].options,
-                                      valueBool: ejemplo),
+                                    question: questions[index],
+                                    back: back,
+                                    options: questions[index].options,
+                                    questionKey: keys[index],
+                                  ),
                                 ),
                               ],
                             );
@@ -159,6 +170,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                   if (_questionNumber > 1) {
                                     _questionNumber--;
                                     percent -= 0.1;
+                                    LocalStorage.prefs
+                                        .setDouble("percent", percent);
                                   }
 
                                   LocalStorage.prefs.setInt(
@@ -176,13 +189,14 @@ class _EvaluationPageState extends State<EvaluationPage> {
                           MySimpleButton(
                             onPressed: () {
                               if (_questionNumber < questions.length) {
-                                /* readJson(); */
                                 _controller!.nextPage(
                                     duration: const Duration(milliseconds: 400),
                                     curve: Curves.easeInExpo);
 
                                 setState(() {
                                   percent += 0.1;
+                                  LocalStorage.prefs
+                                      .setDouble("percent", percent);
                                   _questionNumber++;
                                   LocalStorage.prefs.setInt(
                                       "questionNumber", _questionNumber);

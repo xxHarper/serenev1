@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 
+import '../services/local_storage.dart';
+
 class MyRadioList extends StatefulWidget {
   final Question question;
   final List<Option> options;
-  final bool valueBool;
+  /* final List<String> answers; */
   final Color back;
+  /* final int questionNumber; */
+  final String questionKey;
 
   const MyRadioList(
       {Key? key,
       required this.question,
       required this.options,
-      required this.valueBool,
-      required this.back})
+      /* required this.answers, */
+      required this.back,
+      /* required this.questionNumber, */
+      required this.questionKey})
       : super(key: key);
 
   @override
@@ -20,7 +26,8 @@ class MyRadioList extends StatefulWidget {
 }
 
 class _MyRadioListState extends State<MyRadioList> {
-  String _selectedOption = '';
+  final List<String> answers =
+      LocalStorage.prefs.getStringList("answers") ?? [];
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +50,7 @@ class _MyRadioListState extends State<MyRadioList> {
             groupValue: widget.question.selectedOption,
             onChanged: (String? value) {
               setState(() {
-                _selectedOption = value!;
-                saveAnswer(widget.question, value);
+                saveAnswer(widget.question, value!, widget.questionKey);
               });
             },
           ),
