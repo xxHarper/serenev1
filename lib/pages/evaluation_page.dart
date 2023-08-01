@@ -25,6 +25,12 @@ class _EvaluationPageState extends State<EvaluationPage> {
   List<Option> options = [];
   double percent = LocalStorage.prefs.getDouble("percent") ?? 0.0;
 
+  final String baiIntructions =
+      "Indique para cada uno de los siguientes síntomas el grado en que se ha visto afectado por cada uno de ellos durante la última semana y en el momento actual. Elija de entre las siguientes opciones. \n\nDurante la última semana sentí…";
+
+  final String bdiIntructions =
+      "Por favor, lea cada grupo cuidadosamente y elija una oración en cada conjunto, la que mejor describa cómo se ha sentido en las últimas dos semanas, incluido el día de hoy. Si considera que varias oraciones en un mismo grupo reflejan cómo se ha sentido, elija la opción más alta.";
+
   final Color back = const Color(0xffBF426A);
   final Color lightBackground = const Color(0xffFFE2EA);
   final Color letter = const Color(0xff903A57);
@@ -109,7 +115,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         progressColor: letter,
                         backgroundColor: backBar,
                         center: Text(
-                          "${percent * 100}%",
+                          "${(percent * 100).toStringAsFixed(2)}%",
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -119,6 +125,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         thickness: 1,
                         color: letter,
                       ),
+
+                      instructions(),
 
                       // TEST
                       Expanded(
@@ -169,7 +177,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                 setState(() {
                                   if (_questionNumber > 1) {
                                     _questionNumber--;
-                                    percent -= 0.1;
+                                    percent -= 0.01;
                                     LocalStorage.prefs
                                         .setDouble("percent", percent);
                                   }
@@ -194,7 +202,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                     curve: Curves.easeInExpo);
 
                                 setState(() {
-                                  percent += 0.1;
+                                  percent += 0.01;
                                   LocalStorage.prefs
                                       .setDouble("percent", percent);
                                   _questionNumber++;
@@ -225,5 +233,88 @@ class _EvaluationPageState extends State<EvaluationPage> {
         ),
       ),
     );
+  }
+
+  Widget instructions() {
+    // BAI
+    if (_questionNumber > 3 && _questionNumber <= 23) {
+      return Column(
+        children: [
+          Text(
+            baiIntructions,
+            textAlign: TextAlign.justify,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
+
+    // BDI-II
+    if (_questionNumber > 23 && _questionNumber <= 44) {
+      return Column(
+        children: [
+          Text(
+            bdiIntructions,
+            textAlign: TextAlign.justify,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
+
+    // MINI-1
+    if (_questionNumber > 44 && _questionNumber <= 49) {
+      return Column(
+        children: const [
+          Text(
+            "Durante este último mes:",
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
+
+    // MINI-2
+    if (_questionNumber > 49) {
+      return Column(
+        children: const [
+          Text(
+            "A lo largo de su vida:",
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
+
+    // SOCIODEMOGRAPHYC
+    else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "Cuestionario Sociodemográfico",
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
   }
 }

@@ -43,7 +43,9 @@ class _MyRadioListState extends State<MyRadioList> {
           child: RadioListTile(
             activeColor: widget.back,
             title: Text(
-              widget.options[index].text,
+              widget.options[index].value == 10
+                  ? widget.options[index].text
+                  : "(${widget.options[index].value}) ${widget.options[index].text}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             value: widget.options[index].text,

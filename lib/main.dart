@@ -74,12 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    /*return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      home: OnboardingScreen(),
-    );*/
-
     if (showWelcomeScreens) {
       return OnboardingScreen(showMainPage: toggleSc);
     } else {
