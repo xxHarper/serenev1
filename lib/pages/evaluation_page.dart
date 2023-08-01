@@ -23,7 +23,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   List<Question> questions = [];
   List<Option> options = [];
-  double percent = LocalStorage.prefs.getDouble("percent") ?? 0.0;
+  double percent = LocalStorage.prefs.getDouble("percent") ?? 0.02;
+  String auxPercent = "";
+  double twoDecimalsPercent = 0.00;
 
   final String baiIntructions =
       "Indique para cada uno de los siguientes síntomas el grado en que se ha visto afectado por cada uno de ellos durante la última semana y en el momento actual. Elija de entre las siguientes opciones. \n\nDurante la última semana sentí…";
@@ -37,12 +39,16 @@ class _EvaluationPageState extends State<EvaluationPage> {
   final Color backBar = Colors.pink.shade100;
 
   List<String> keys = [];
+  List<String> valueKeys = [];
 
   readQuestions() {
     int i = 0;
+
     keys.clear();
+
     sociodemographic.forEach((question) {
       keys.add("answer$i");
+
       saveAnswer(
           question, LocalStorage.prefs.getString("answer$i") ?? "", "answer$i");
 
@@ -55,12 +61,32 @@ class _EvaluationPageState extends State<EvaluationPage> {
     });
   }
 
+  readValue() {
+    int i = 0;
+
+    valueKeys.clear();
+
+    questions.forEach((question) {
+      valueKeys.add("value$i");
+
+      for (var option in question.options) {
+        if (question.selectedOption == option.text) {
+          saveValue(question, option, "value$i");
+          break;
+        }
+      }
+
+      i++;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
 
     setState(() {
       readQuestions();
+      readValue();
       _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
       _controller = PageController(initialPage: _questionNumber - 1);
     });
@@ -126,6 +152,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         color: letter,
                       ),
 
+                      // INSTRUCTIONS
                       instructions(),
 
                       // TEST
@@ -153,6 +180,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                     back: back,
                                     options: questions[index].options,
                                     questionKey: keys[index],
+                                    valueKey: valueKeys[index],
                                   ),
                                 ),
                               ],
@@ -177,7 +205,12 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                 setState(() {
                                   if (_questionNumber > 1) {
                                     _questionNumber--;
-                                    percent -= 0.01;
+                                    percent -= 0.02;
+
+                                    auxPercent = percent.toStringAsFixed(2);
+                                    twoDecimalsPercent =
+                                        double.parse(auxPercent);
+                                    percent = twoDecimalsPercent;
                                     LocalStorage.prefs
                                         .setDouble("percent", percent);
                                   }
@@ -202,7 +235,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
                                     curve: Curves.easeInExpo);
 
                                 setState(() {
-                                  percent += 0.01;
+                                  percent += 0.02;
+                                  auxPercent = percent.toStringAsFixed(2);
+                                  twoDecimalsPercent = double.parse(auxPercent);
+                                  percent = twoDecimalsPercent;
                                   LocalStorage.prefs
                                       .setDouble("percent", percent);
                                   _questionNumber++;

@@ -5,9 +5,13 @@ class Question {
   final List<Option> options;
 
   String selectedOption;
+  int selectedValue;
 
   Question(
-      {required this.text, required this.options, this.selectedOption = ""});
+      {required this.text,
+      required this.options,
+      this.selectedOption = "",
+      this.selectedValue = 10});
 }
 
 class Option {
@@ -20,6 +24,11 @@ class Option {
 void saveAnswer(Question question, String option, String key) {
   question.selectedOption = option;
   LocalStorage.prefs.setString(key, option);
+}
+
+void saveValue(Question question, Option option, String key){
+  question.selectedValue = option.value;
+  LocalStorage.prefs.setInt(key, option.value);
 }
 
 final sociodemographic = [

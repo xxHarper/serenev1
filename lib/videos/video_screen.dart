@@ -44,14 +44,19 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _betterPlayerController!.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 //    final WidgetArguments arguments = ModalRoute.of(context).settings.arguments;
-    return Container(
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: BetterPlayer(
-            key: _betterPlayerKey, controller: _betterPlayerController!),
-      ),
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: BetterPlayer(
+          key: _betterPlayerKey, controller: _betterPlayerController!),
     );
   }
 }

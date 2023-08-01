@@ -6,19 +6,17 @@ import '../services/local_storage.dart';
 class MyRadioList extends StatefulWidget {
   final Question question;
   final List<Option> options;
-  /* final List<String> answers; */
   final Color back;
-  /* final int questionNumber; */
   final String questionKey;
+  final String valueKey;
 
   const MyRadioList(
       {Key? key,
       required this.question,
       required this.options,
-      /* required this.answers, */
       required this.back,
-      /* required this.questionNumber, */
-      required this.questionKey})
+      required this.questionKey,
+      required this.valueKey})
       : super(key: key);
 
   @override
@@ -53,6 +51,8 @@ class _MyRadioListState extends State<MyRadioList> {
             onChanged: (String? value) {
               setState(() {
                 saveAnswer(widget.question, value!, widget.questionKey);
+                saveValue(
+                    widget.question, widget.options[index], widget.valueKey);
               });
             },
           ),
