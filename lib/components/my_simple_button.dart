@@ -6,6 +6,7 @@ class MySimpleButton extends StatelessWidget {
   final Color back;
   final Color txtColor;
   final double? btnWidth;
+  final bool enabled;
 
   const MySimpleButton(
       {Key? key,
@@ -13,6 +14,7 @@ class MySimpleButton extends StatelessWidget {
       required this.txt,
       required this.back,
       required this.txtColor,
+      this.enabled = true,
       this.btnWidth = 250})
       : super(key: key);
 
@@ -20,7 +22,7 @@ class MySimpleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: OutlinedButton(
-        onPressed: onPressed,
+        onPressed: enabled ? onPressed : null,
         style: OutlinedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

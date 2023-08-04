@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:serenev1/components/my_radio_list.dart';
 import 'package:serenev1/components/my_simple_button.dart';
@@ -21,6 +22,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
   int _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
   PageController? _controller;
 
+  bool enabledNext = false;
+
   List<Question> questions = [];
   List<Option> options = [];
   double percent = LocalStorage.prefs.getDouble("percent") ?? 0.02;
@@ -37,6 +40,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
   final Color lightBackground = const Color(0xffFFE2EA);
   final Color letter = const Color(0xff903A57);
   final Color backBar = Colors.pink.shade100;
+
+  TextEditingController medicine = TextEditingController(
+      text: LocalStorage.prefs.getString("medicine") ?? "");
 
   List<String> keys = [];
   List<String> valueKeys = [];
@@ -155,113 +161,16 @@ class _EvaluationPageState extends State<EvaluationPage> {
                       // INSTRUCTIONS
                       instructions(),
 
-                      // TEST
-                      Expanded(
-                        child: PageView.builder(
-                          controller: _controller,
-                          itemCount: sociodemographic.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          onPageChanged: (index) {
-                            setState(() {});
-                          },
-                          itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  questions[index].text,
-                                  style: const TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                                Expanded(
-                                  child: MyRadioList(
-                                    question: questions[index],
-                                    back: back,
-                                    options: questions[index].options,
-                                    questionKey: keys[index],
-                                    valueKey: valueKeys[index],
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
+                      // ADD SOME SPACE
+                      const SizedBox(
+                        height: 15,
                       ),
 
+                      // TEST
+                      showTest(),
+
                       // BUTTONS
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // BACK BUTTON
-                          Visibility(
-                            visible: _questionNumber > 1 ? true : false,
-                            child: MySimpleButton(
-                              onPressed: () {
-                                _controller!.previousPage(
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInExpo);
-
-                                setState(() {
-                                  if (_questionNumber > 1) {
-                                    _questionNumber--;
-                                    percent -= 0.02;
-
-                                    auxPercent = percent.toStringAsFixed(2);
-                                    twoDecimalsPercent =
-                                        double.parse(auxPercent);
-                                    percent = twoDecimalsPercent;
-                                    LocalStorage.prefs
-                                        .setDouble("percent", percent);
-                                  }
-
-                                  LocalStorage.prefs.setInt(
-                                      "questionNumber", _questionNumber);
-                                });
-                              },
-                              txt: "Anterior",
-                              back: back,
-                              txtColor: Colors.white,
-                              btnWidth: 110,
-                            ),
-                          ),
-
-                          // NEXT BUTTON
-                          MySimpleButton(
-                            onPressed: () {
-                              if (_questionNumber < questions.length) {
-                                _controller!.nextPage(
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInExpo);
-
-                                setState(() {
-                                  percent += 0.02;
-                                  auxPercent = percent.toStringAsFixed(2);
-                                  twoDecimalsPercent = double.parse(auxPercent);
-                                  percent = twoDecimalsPercent;
-                                  LocalStorage.prefs
-                                      .setDouble("percent", percent);
-                                  _questionNumber++;
-                                  LocalStorage.prefs.setInt(
-                                      "questionNumber", _questionNumber);
-                                });
-                              } else {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ResultsPage()));
-                              }
-                            },
-                            txt: _questionNumber < questions.length
-                                ? "Siguiente"
-                                : "Ver Resultado",
-                            back: back,
-                            txtColor: Colors.white,
-                            btnWidth: 110,
-                          )
-                        ],
-                      )
+                      enabledButtons(),
                     ],
                   )),
             ),
@@ -271,6 +180,74 @@ class _EvaluationPageState extends State<EvaluationPage> {
     );
   }
 
+  // SHOW THE TEST
+  Widget showTest() {
+    return Expanded(
+      child: PageView.builder(
+        controller: _controller,
+        itemCount: sociodemographic.length,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {});
+        },
+        itemBuilder: (context, index) {
+          // MAGIC FOR SETSTATE XD
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            setState(() {});
+          });
+
+          return GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  questions[index].text,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.normal),
+                ),
+                Expanded(
+                  child: MyRadioList(
+                    question: questions[index],
+                    back: back,
+                    options: questions[index].options,
+                    questionKey: keys[index],
+                    valueKey: valueKeys[index],
+                  ),
+                ),
+
+                // IN CASE... ASK FOR THE MEDICINE
+                if (_questionNumber == 3 &&
+                    questions[index].selectedOption == "Si")
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        border:
+                            Border.all(color: Colors.pink.shade100, width: 2)),
+                    child: TextField(
+                      controller: medicine,
+                      onChanged: (value) {
+                        LocalStorage.prefs.setString("medicine", value);
+                      },
+                      style: const TextStyle(fontSize: 18),
+                      decoration: const InputDecoration(
+                          hintText: "Qué medicamento es?",
+                          border: InputBorder.none),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // SHOW INSTRUCTIONS
   Widget instructions() {
     // BAI
     if (_questionNumber > 3 && _questionNumber <= 23) {
@@ -352,5 +329,81 @@ class _EvaluationPageState extends State<EvaluationPage> {
         ],
       );
     }
+  }
+
+  // ENABLED OR NOT THE BUTTONS
+  Widget enabledButtons() {
+    if (questions[_questionNumber - 1].selectedOption != "") {
+      setState(() {
+        enabledNext = true;
+      });
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // BACK BUTTON
+        Visibility(
+          visible: _questionNumber > 1 ? true : false,
+          child: MySimpleButton(
+            onPressed: () {
+              _controller!.previousPage(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInExpo);
+
+              setState(() {
+                if (_questionNumber > 1) {
+                  _questionNumber--;
+                  percent -= 0.02;
+
+                  auxPercent = percent.toStringAsFixed(2);
+                  twoDecimalsPercent = double.parse(auxPercent);
+                  percent = twoDecimalsPercent;
+                  LocalStorage.prefs.setDouble("percent", percent);
+                }
+
+                LocalStorage.prefs.setInt("questionNumber", _questionNumber);
+              });
+            },
+            txt: "Anterior",
+            back: back,
+            txtColor: Colors.white,
+            btnWidth: 110,
+          ),
+        ),
+
+        // NEXT BUTTON
+        MySimpleButton(
+          enabled: enabledNext,
+          onPressed: () {
+            if (_questionNumber < questions.length) {
+              _controller!.nextPage(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInExpo);
+
+              setState(() {
+                percent += 0.02;
+                auxPercent = percent.toStringAsFixed(2);
+                twoDecimalsPercent = double.parse(auxPercent);
+                percent = twoDecimalsPercent;
+                LocalStorage.prefs.setDouble("percent", percent);
+                _questionNumber++;
+                LocalStorage.prefs.setInt("questionNumber", _questionNumber);
+                enabledNext = false;
+              });
+            } else {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const ResultsPage()));
+            }
+          },
+          txt: _questionNumber < questions.length
+              ? "Siguiente"
+              : "Ver Resultado",
+          back: back,
+          txtColor: Colors.white,
+          btnWidth: 110,
+        )
+      ],
+    );
   }
 }
