@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:serenev1/onboarding_screen.dart';
 import 'package:serenev1/services/local_storage.dart';
 import 'package:serenev1/services/notification_services.dart';
@@ -14,6 +15,10 @@ Future main() async {
   await Firebase.initializeApp();
   await initNotifications();
   await LocalStorage.configurePrefs();
+  // init the hive database
+  await Hive.initFlutter();
+  // open a box
+  await Hive.openBox("User_Database");
   runApp(const MyApp());
 }
 

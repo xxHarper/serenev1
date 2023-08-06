@@ -29,7 +29,7 @@ class _ResultsPageState extends State<ResultsPage> {
                 height: 50,
                 title: "Evaluación Previa",
                 letter: letter,
-                lightBackground: lightBackground)
+                lightBackground: lightBackground),
           ],
         ),
       ),

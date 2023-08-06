@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serenev1/data/user_database.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 
 import '../services/local_storage.dart';
@@ -7,16 +8,14 @@ class MyRadioList extends StatefulWidget {
   final Question question;
   final List<Option> options;
   final Color back;
-  final String questionKey;
-  final String valueKey;
+  final int questionNumber;
 
-  const MyRadioList(
+  MyRadioList(
       {Key? key,
       required this.question,
       required this.options,
       required this.back,
-      required this.questionKey,
-      required this.valueKey})
+      required this.questionNumber})
       : super(key: key);
 
   @override
@@ -27,11 +26,15 @@ class _MyRadioListState extends State<MyRadioList> {
   final List<String> answers =
       LocalStorage.prefs.getStringList("answers") ?? [];
 
+  UserDatabase db = UserDatabase();
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: widget.options.length,
       itemBuilder: (BuildContext context, int index) {
+        db.loadSelectedAnswers();
+
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 4),
           decoration: BoxDecoration(
@@ -47,12 +50,11 @@ class _MyRadioListState extends State<MyRadioList> {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             value: widget.options[index].text,
-            groupValue: widget.question.selectedOption,
+            groupValue: db.selectedAnswers[widget.questionNumber][0].toString(),
             onChanged: (String? value) {
               setState(() {
-                saveAnswer(widget.question, value!, widget.questionKey);
-                saveValue(
-                    widget.question, widget.options[index], widget.valueKey);
+                db.updateSelectedAnswers(
+                    widget.questionNumber, value!, widget.options[index].value);
               });
             },
           ),

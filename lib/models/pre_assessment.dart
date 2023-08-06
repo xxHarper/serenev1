@@ -26,7 +26,7 @@ void saveAnswer(Question question, String option, String key) {
   LocalStorage.prefs.setString(key, option);
 }
 
-void saveValue(Question question, Option option, String key){
+void saveValue(Question question, Option option, String key) {
   question.selectedValue = option.value;
   LocalStorage.prefs.setInt(key, option.value);
 }
@@ -906,4 +906,98 @@ final sociodemographic = [
       text: "SI",
     ),
   ]),
+
+  // 56. INDICE DE BIENESTAR GENERAL OMS
+  Question(text: "¿Me he sentido alegre y de buen ánimo?", options: [
+    Option(
+      text: "Nunca",
+      value: 0,
+    ),
+    Option(
+      text: "",
+      value: 1,
+    ),
+    Option(
+      text: "",
+      value: 2,
+    ),
+    Option(
+      text: "Siempre",
+      value: 3,
+    )
+  ]),
+  Question(text: "¿Me he sentido tranquilo/a y relajado/a?", options: [
+    Option(
+      text: "Nunca",
+      value: 0,
+    ),
+    Option(
+      text: "",
+      value: 1,
+    ),
+    Option(
+      text: "",
+      value: 2,
+    ),
+    Option(
+      text: "Siempre",
+      value: 3,
+    )
+  ]),
+  Question(text: "¿Me he sentido activo/a y con energía?", options: [
+    Option(
+      text: "Nunca",
+      value: 0,
+    ),
+    Option(
+      text: "",
+      value: 1,
+    ),
+    Option(
+      text: "",
+      value: 2,
+    ),
+    Option(
+      text: "Siempre",
+      value: 3,
+    )
+  ]),
+  Question(text: "¿Me he levantado sintiéndome bien y descansado/a?", options: [
+    Option(
+      text: "Nunca",
+      value: 0,
+    ),
+    Option(
+      text: "",
+      value: 1,
+    ),
+    Option(
+      text: "",
+      value: 2,
+    ),
+    Option(
+      text: "Siempre",
+      value: 3,
+    )
+  ]),
+  Question(
+      text: "¿Mi vida diaria ha tenido cosas interesantes para mí?",
+      options: [
+        Option(
+          text: "Nunca",
+          value: 0,
+        ),
+        Option(
+          text: "",
+          value: 1,
+        ),
+        Option(
+          text: "",
+          value: 2,
+        ),
+        Option(
+          text: "Siempre",
+          value: 3,
+        )
+      ]),
 ];

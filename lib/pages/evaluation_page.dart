@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:serenev1/components/my_radio_list.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
+import 'package:serenev1/data/user_database.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 import 'package:serenev1/pages/results_page.dart';
 
@@ -44,45 +46,25 @@ class _EvaluationPageState extends State<EvaluationPage> {
   TextEditingController medicine = TextEditingController(
       text: LocalStorage.prefs.getString("medicine") ?? "");
 
-  List<String> keys = [];
-  List<String> valueKeys = [];
+  /* List<String> keys = [];
+  List<String> valueKeys = []; */
+
+  UserDatabase db = UserDatabase();
+  final _myBox = Hive.box("User_Database");
 
   readQuestions() {
-    int i = 0;
-
-    keys.clear();
+    // If this is the first time
+    if (_myBox.get("selectedAnswers") == null) {
+      db.initSelectedANswers();
+    } else {
+      db.loadSelectedAnswers();
+    }
 
     sociodemographic.forEach((question) {
-      keys.add("answer$i");
-
-      saveAnswer(
-          question, LocalStorage.prefs.getString("answer$i") ?? "", "answer$i");
-
       questions.add(Question(
           text: question.text,
           options: question.options,
           selectedOption: question.selectedOption));
-
-      i++;
-    });
-  }
-
-  readValue() {
-    int i = 0;
-
-    valueKeys.clear();
-
-    questions.forEach((question) {
-      valueKeys.add("value$i");
-
-      for (var option in question.options) {
-        if (question.selectedOption == option.text) {
-          saveValue(question, option, "value$i");
-          break;
-        }
-      }
-
-      i++;
     });
   }
 
@@ -92,7 +74,6 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
     setState(() {
       readQuestions();
-      readValue();
       _questionNumber = LocalStorage.prefs.getInt("questionNumber") ?? 1;
       _controller = PageController(initialPage: _questionNumber - 1);
     });
@@ -184,66 +165,66 @@ class _EvaluationPageState extends State<EvaluationPage> {
   Widget showTest() {
     return Expanded(
       child: PageView.builder(
-        controller: _controller,
-        itemCount: sociodemographic.length,
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (index) {
-          setState(() {});
-        },
-        itemBuilder: (context, index) {
-          // MAGIC FOR SETSTATE XD
-          SchedulerBinding.instance.addPostFrameCallback((_) {
+          controller: _controller,
+          itemCount: sociodemographic.length,
+          physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: (index) {
             setState(() {});
-          });
+          },
+          itemBuilder: (context, index) {
+            // MAGIC FOR SETSTATE XD
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              setState(() {});
+            });
 
-          return GestureDetector(
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  questions[index].text,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.normal),
-                ),
-                Expanded(
-                  child: MyRadioList(
-                    question: questions[index],
-                    back: back,
-                    options: questions[index].options,
-                    questionKey: keys[index],
-                    valueKey: valueKeys[index],
+            // VERTICAL RADIO BUTTON LIST
+
+            return GestureDetector(
+              onTap: () {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    questions[index].text,
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.normal),
                   ),
-                ),
-
-                // IN CASE... ASK FOR THE MEDICINE
-                if (_questionNumber == 3 &&
-                    questions[index].selectedOption == "Si")
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        border:
-                            Border.all(color: Colors.pink.shade100, width: 2)),
-                    child: TextField(
-                      controller: medicine,
-                      onChanged: (value) {
-                        LocalStorage.prefs.setString("medicine", value);
-                      },
-                      style: const TextStyle(fontSize: 18),
-                      decoration: const InputDecoration(
-                          hintText: "Qué medicamento es?",
-                          border: InputBorder.none),
+                  Expanded(
+                    child: MyRadioList(
+                      question: questions[index],
+                      back: back,
+                      options: questions[index].options,
+                      questionNumber: index,
                     ),
                   ),
-              ],
-            ),
-          );
-        },
-      ),
+
+                  // IN CASE... ASK FOR THE MEDICINE
+                  if (_questionNumber == 3 &&
+                      questions[index].selectedOption == "Si")
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                              color: Colors.pink.shade100, width: 2)),
+                      child: TextField(
+                        controller: medicine,
+                        onChanged: (value) {
+                          LocalStorage.prefs.setString("medicine", value);
+                        },
+                        style: const TextStyle(fontSize: 18),
+                        decoration: const InputDecoration(
+                            hintText: "Qué medicamento es?",
+                            border: InputBorder.none),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          }),
     );
   }
 
@@ -298,12 +279,29 @@ class _EvaluationPageState extends State<EvaluationPage> {
     }
 
     // MINI-2
-    if (_questionNumber > 49) {
+    if (_questionNumber > 49 && _questionNumber <= 50) {
       return Column(
         children: const [
           Text(
             "A lo largo de su vida:",
             textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      );
+    }
+
+    // OMS BIENESTAR GENERAL
+    if (_questionNumber > 50) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "Durante las últimas dos semanas...",
+            textAlign: TextAlign.left,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
           SizedBox(
@@ -333,7 +331,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
   // ENABLED OR NOT THE BUTTONS
   Widget enabledButtons() {
-    if (questions[_questionNumber - 1].selectedOption != "") {
+    if (db.selectedAnswers[_questionNumber - 1][0] != "") {
       setState(() {
         enabledNext = true;
       });
