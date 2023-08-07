@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
@@ -9,11 +10,10 @@ import '../../components/my_checkbox_list.dart';
 import '../../components/my_circular_container.dart';
 import '../../components/my_foda_container.dart';
 import '../../components/my_simple_app_bar.dart';
+import '../../data/user_database.dart';
 import '../../services/local_storage.dart';
 
 class Summary extends StatelessWidget {
-  final List<bool> objetives;
-  final List<String> txt;
   final List<String> strenghts;
   final List<String> threads;
   final List<String> opportunities;
@@ -21,8 +21,6 @@ class Summary extends StatelessWidget {
 
   Summary(
       {Key? key,
-      required this.objetives,
-      required this.txt,
       required this.strenghts,
       required this.threads,
       required this.opportunities,
@@ -36,6 +34,18 @@ class Summary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserDatabase db = UserDatabase();
+    db.loadObjetives();
+    List objetives = [];
+
+    // create a new list with only the TRUE
+    // objetives
+    for (var objetive in db.objetivesModule1) {
+      if (objetive[1]) {
+        objetives.add(objetive);
+      }
+    }
+
     return Scaffold(
       appBar: MySimpleAppBar(back: back, lightBackground: lightBackground),
       backgroundColor: back,
@@ -73,17 +83,11 @@ class Summary extends StatelessWidget {
                                 fontWeight: FontWeight.normal, fontSize: 18)),
                       ],
                     )),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: objetives.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CheckboxList(
-                              checkboxValue: objetives[index],
-                              txt: txt[index],
-                              enabled: true,
-                              back: back);
-                        })
+                    CheckboxList(
+                      back: back,
+                      items: objetives,
+                      enabled: true,
+                    ),
                   ],
                 ),
               ),

@@ -254,78 +254,21 @@ class _FodaState extends State<Foda> {
               ),
 
               // BUTTON
-              MySimpleContainer(padding: 0,
+              MySimpleContainer(
+                  padding: 0,
                   lightBackground: lightBackground,
                   child: MySimpleButton(
                     onPressed: () {
-                      List<bool> cboxes = [];
-                      List<bool> objectives = [];
-                      List<String> cboxesText = [];
-                      List<String> objectivesText = [];
-
-                      cboxes.add(LocalStorage.prefs.getBool("cbox1") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox2") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox3") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox4") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox5") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox6") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox7") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox8") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox9") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox10") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox11") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox12") ?? false);
-                      cboxes.add(LocalStorage.prefs.getBool("cbox13") ?? false);
-
-                      cboxesText.add(
-                          "Aprender técnicas de relajación para reducir el estrés de manera efectiva.");
-                      cboxesText.add(
-                          "Mejorar la habilidad de comunicación interpersonal para establecer relaciones más saludables y satisfactorias.");
-                      cboxesText.add(
-                          "Optimizar la calidad y duración de mi descanso para mejorar mi bienestar general.");
-                      cboxesText.add(
-                          "Desarrollar habilidades para manejar y regular mis emociones de forma saludable y equilibrada.");
-                      cboxesText.add(
-                          "Fortalecer mi autoestima y confianza personal.");
-                      cboxesText.add(
-                          "Implementar estrategias efectivas para gestionar conflictos de manera constructiva.");
-                      cboxesText.add(
-                          "Incorporar regularmente técnicas de mindfulness para aumentar la conciencia plena.");
-                      cboxesText.add(
-                          "Adoptar hábitos que promuevan mi bienestar físico y mental.");
-                      cboxesText.add(
-                          "Desarrollar la capacidad de adaptación y flexibilidad ante situaciones cambiantes.");
-                      cboxesText.add(
-                          "Aprender a establecer límites personales de manera clara y asertiva.");
-                      cboxesText.add(
-                          "Ampliar mi autoconocimiento para comprender mejor mis necesidades emocionales y satisfacerlas.");
-                      cboxesText.add(
-                          "Mejorar mi habilidad para administrar el tiempo de manera eficiente y evitar la procrastinación.");
-                      cboxesText.add(
-                          "Promover la participación en actividades que incrementen mi bienestar emocional y disfrute personal.");
-
-                      for (var i = 0; i < cboxes.length; i++) {
-                        if (cboxes[i]) {
-                          objectives.add(cboxes[i]);
-                          objectivesText.add(cboxesText[i]);
-                        }
-                      }
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => Summary(
-                                  objetives: objectives,
-                                  txt: objectivesText,
                                   strenghts: strenghts,
                                   threads: threads,
                                   opportunities: opportunities,
                                   weaknesses: weaknesses,
                                 )),
-                      ).then((value) => setState(() {
-                            objectives.clear();
-                            objectivesText.clear();
-                          }));
+                      ).then((value) => setState(() {}));
                     },
                     txt: "Continuar",
                     back: back,
