@@ -9,7 +9,6 @@ import 'package:serenev1/modules/module_1/strengths.dart';
 import 'package:serenev1/modules/module_1/summary.dart';
 import 'package:serenev1/modules/module_1/threads.dart';
 import 'package:serenev1/modules/module_1/weaknesses.dart';
-import 'package:serenev1/services/local_storage.dart';
 
 class Foda extends StatefulWidget {
   const Foda({Key? key}) : super(key: key);
@@ -24,80 +23,6 @@ class _FodaState extends State<Foda> {
   final Color letter = const Color(0XFF3A907A);
   final String instructions =
       "Ahora que has reflexionado sobre tus metas y has entendido lo importante que es tenerlas, vamos a hacer un ejercicio que te ayudará a comprender por qué es tan crucial que te esfuerces por alcanzarlas. Saber esto puede brindarte una motivación significativa y, cada vez que te sientas tentado a abandonar tu meta, podrás recordar tu \"por qué\".";
-
-  List<String> strenghts = LocalStorage.prefs.getStringList("strenghts") ?? [];
-  List<String> preStrenghts = [
-    "•  Sabiduría y conocimiento",
-    "•  Curiosidad / Interés en el mundo",
-    "•  Juicio / Pensamiento crítico / Apertura mental",
-    "•  Ingenio / Originalidad / Inteligencia práctica / Espabilado",
-    "•  Inteligencia social / Inteligencia personal / Inteligencia emocional",
-    "•  Perspectiva / Valor / Perseverancia",
-    "•  Valor y bravura",
-    "•  Perseverancia / Laboriosidad / DiligenciaPerseverancia / Laboriosidad / Diligencia",
-    "•  Integridad / Autenticidad / Honestidad",
-    "•  Amabilidad y generosidad",
-    "•  Amar y permitirse ser amado",
-    "•  Ciudadanía / Deber / Trabajo en equipo / Lealtad",
-    "•  Imparcialidad e igualdad",
-    "•  Liderazgo",
-    "•  Autocontrol",
-    "•  Prudencia / Discreción / Cautela",
-    "•  Humildad y modestia",
-    "•  Aprecio por la belleza y la excelencia",
-    "•  Gratitud",
-    "•  Esperanza / Optimismo / Pensamiento orientado al futuro",
-    "•  Espiritualidad / Sentido de propósito / Religiosidad",
-    "•  Perdón y piedad",
-    "•  Jocosidad y humor",
-    "•  Vivacidad / Pasión / Entusiasmo",
-  ];
-
-  List<String> weaknesses =
-      LocalStorage.prefs.getStringList("weaknesses") ?? [];
-  List<String> preWeaknesses = [
-    "•  Ignorancia / Desconocimiento",
-    "•  Desinterés / Apatía",
-    "•  Desatino / Sinrazón",
-    "•  Incapacidad / Torpeza",
-    "•  Ineptitud social / Estupidez personal / Desavenencia emocional",
-    "•  Ineficacia / Inutilidad / Negligencia",
-    "•  Cobardía / Vergüenza",
-    "•  Negligencia / Desidia",
-    "•  Podredumbre / Deshonestidad",
-    "•  Mezquindad / Codicia",
-    "•  Odio / Aborrecer",
-    "•  Traición / Desvergüenza",
-    "•  Injusticia / Parcialidad",
-    "•  Carencia de dirección, organización, autoridad, dominio de grupo",
-    "•  Descontrol / Descuido",
-    "•  Osadía / Ligereza",
-    "•  Soberbia / Arrogancia",
-    "•  Aprecio por la fealdad y antiestética",
-    "•  Ingratitud / Deslealtad",
-    "•  Desesperanza / Desaliento / Pesimismo",
-    "•  Materialismo / Agnosticismo",
-    "•  Castigo / Crueldad / Severidad",
-    "•  Seriedad / disgusto",
-    "•  Desaliento / Tibieza"
-  ];
-
-  List<String> opportunities =
-      LocalStorage.prefs.getStringList("opportunities") ?? [];
-  List<String> preOpportunities = [
-    "•  Apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
-    "•  Apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
-    "•  Apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
-    "•  Prevención de accidentes y desastres naturales"
-  ];
-
-  List<String> threads = LocalStorage.prefs.getStringList("threads") ?? [];
-  List<String> preThreads = [
-    "•  Falta de apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
-    "•  Falta de apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
-    "•  Falta de apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
-    "•  Falta de prevención de accidentes y desastres naturales"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -139,16 +64,11 @@ class _FodaState extends State<Foda> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Strengths(
-                                          preStrengthsList: preStrenghts,
-                                          strengthsList: strenghts,
-                                        )),
+                                    builder: (context) => const Strengths()),
                               ).then((value) => setState(() {}));
                             },
-                            child: MyFodaContainer(
-                              txt: strenghts.isNotEmpty
-                                  ? "Fortalezas\n${strenghts.first}\n${strenghts.last}"
-                                  : "Fortalezas",
+                            child: const MyFodaContainer(
+                              txt: "Fortalezas",
                               letterColor: Colors.white,
                               backColor: Colors.cyan,
                               boxShadowColor: Colors.cyanAccent,
@@ -165,16 +85,11 @@ class _FodaState extends State<Foda> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Threads(
-                                          preThreadsList: preThreads,
-                                          threadsList: threads,
-                                        )),
+                                    builder: (context) => const Threads()),
                               ).then((value) => setState(() {}));
                             },
-                            child: MyFodaContainer(
-                              txt: threads.isNotEmpty
-                                  ? "Amenazas\n${threads.first}\n${threads.last}"
-                                  : "Amenazas",
+                            child: const MyFodaContainer(
+                              txt: "Amenazas",
                               letterColor: Colors.white,
                               backColor: Colors.orange,
                               boxShadowColor: Colors.orangeAccent,
@@ -191,17 +106,11 @@ class _FodaState extends State<Foda> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Opportunities(
-                                          opportunitiesList: opportunities,
-                                          preOpportunitiesList:
-                                              preOpportunities,
-                                        )),
+                                    builder: (context) => const Opportunities()),
                               ).then((value) => setState(() {}));
                             },
-                            child: MyFodaContainer(
-                              txt: opportunities.isNotEmpty
-                                  ? "Oportunidades\n${opportunities.first}\n${opportunities.last}"
-                                  : "Oportunidades",
+                            child: const MyFodaContainer(
+                              txt: "Oportunidades",
                               letterColor: Colors.white,
                               backColor: Colors.lightGreen,
                               boxShadowColor: Colors.lightGreenAccent,
@@ -218,16 +127,11 @@ class _FodaState extends State<Foda> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Weaknesses(
-                                          preWeaknessesList: preWeaknesses,
-                                          weaknessesList: weaknesses,
-                                        )),
+                                    builder: (context) => const Weaknesses()),
                               ).then((value) => setState(() {}));
                             },
-                            child: MyFodaContainer(
-                              txt: weaknesses.isNotEmpty
-                                  ? "Debilidades\n${weaknesses.first}\n${weaknesses.last}"
-                                  : "Debilidades",
+                            child: const MyFodaContainer(
+                              txt: "Debilidades",
                               letterColor: Colors.white,
                               backColor: Colors.pink,
                               boxShadowColor: Colors.pinkAccent,
@@ -261,13 +165,7 @@ class _FodaState extends State<Foda> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Summary(
-                                  strenghts: strenghts,
-                                  threads: threads,
-                                  opportunities: opportunities,
-                                  weaknesses: weaknesses,
-                                )),
+                        MaterialPageRoute(builder: (context) => Summary()),
                       ).then((value) => setState(() {}));
                     },
                     txt: "Continuar",

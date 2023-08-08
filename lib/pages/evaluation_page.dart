@@ -46,9 +46,6 @@ class _EvaluationPageState extends State<EvaluationPage> {
   TextEditingController medicine = TextEditingController(
       text: LocalStorage.prefs.getString("medicine") ?? "");
 
-  /* List<String> keys = [];
-  List<String> valueKeys = []; */
-
   UserDatabase db = UserDatabase();
   final _myBox = Hive.box("User_Database");
 

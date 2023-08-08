@@ -10,8 +10,14 @@ class UserDatabase {
   List selectedAnswers = [];
   // Objetives for module1
   List objetivesModule1 = [];
-  // user xd
-  List strenghts = [];
+  // User strenghts from swot (FODA)
+  List swotStrenghts = [];
+  // User weaknesses from swot (FODA)
+  List swotWeaknesses = [];
+  // User threads from swot (FODA)
+  List swotThreads = [];
+  // User opportunities from swot (FODA)
+  List swotOpportunities = [];
 
   // Initialize de selectedAnswers list for the first time
   // it means, empty String because of option.text and the int value
@@ -114,5 +120,162 @@ class UserDatabase {
   void updateObjetives(int index, bool value) {
     objetivesModule1[index][1] = value;
     _myBox.put("objetivesModule1", objetivesModule1);
+  }
+
+  // init the STRENGHTS list with default data
+  void initStrenghts() {
+    swotStrenghts.add(["Sabiduría y conocimiento", false]);
+    swotStrenghts.add(["Curiosidad / Interés en el mundo", false]);
+    swotStrenghts
+        .add(["Juicio / Pensamiento crítico / Apertura mental", false]);
+    swotStrenghts.add(
+        ["Ingenio / Originalidad / Inteligencia práctica / Espabilado", false]);
+    swotStrenghts.add([
+      "Inteligencia social / Inteligencia personal / Inteligencia emocional",
+      false
+    ]);
+    swotStrenghts.add(["Perspectiva / Valor / Perseverancia", false]);
+    swotStrenghts.add(["Valor y bravura", false]);
+    swotStrenghts.add([
+      "Perseverancia / Laboriosidad / DiligenciaPerseverancia / Laboriosidad / Diligencia",
+      false
+    ]);
+    swotStrenghts.add(["Integridad / Autenticidad / Honestidad", false]);
+    swotStrenghts.add(["Amabilidad y generosidad", false]);
+    swotStrenghts.add(["Amar y permitirse ser amado", false]);
+    swotStrenghts
+        .add(["Ciudadanía / Deber / Trabajo en equipo / Lealtad", false]);
+    swotStrenghts.add(["Imparcialidad e igualdad", false]);
+    swotStrenghts.add(["Liderazgo", false]);
+    swotStrenghts.add(["Autocontrol", false]);
+    swotStrenghts.add(["Prudencia / Discreción / Cautela", false]);
+    swotStrenghts.add(["Humildad y modestia", false]);
+    swotStrenghts.add(["Aprecio por la belleza y la excelencia", false]);
+    swotStrenghts.add(["Gratitud", false]);
+    swotStrenghts.add(
+        ["Esperanza / Optimismo / Pensamiento orientado al futuro", false]);
+    swotStrenghts
+        .add(["Espiritualidad / Sentido de propósito / Religiosidad", false]);
+    swotStrenghts.add(["Perdón y piedad", false]);
+    swotStrenghts.add(["Jocosidad y humor", false]);
+    swotStrenghts.add(["Vivacidad / Pasión / Entusiasmo", false]);
+
+    _myBox.put("swotStrenghts", swotStrenghts);
+  }
+
+  // load the saved STRENGHTS
+  void loadStrenghts() {
+    swotStrenghts = _myBox.get("swotStrenghts");
+  }
+
+  // update the STRENGHTS list, new, edit, delet
+  void updateStrenghts() {
+    _myBox.put("swotStrenghts", swotStrenghts);
+  }
+
+  // init the WEAKNESSES list with default data
+  void initWeaknesses() {
+    swotWeaknesses.add(["Ignorancia / Desconocimiento", false]);
+    swotWeaknesses.add(["Desinterés / Apatía", false]);
+    swotWeaknesses.add(["Desatino / Sinrazón", false]);
+    swotWeaknesses.add(["Incapacidad / Torpeza", false]);
+    swotWeaknesses.add([
+      "Ineptitud social / Estupidez personal / Desavenencia emocional",
+      false
+    ]);
+    swotWeaknesses.add(["Ineficacia / Inutilidad / Negligencia", false]);
+    swotWeaknesses.add(["Cobardía / Vergüenza", false]);
+    swotWeaknesses.add(["Negligencia / Desidia", false]);
+    swotWeaknesses.add(["Podredumbre / Deshonestidad", false]);
+    swotWeaknesses.add(["Mezquindad / Codicia", false]);
+    swotWeaknesses.add(["Odio / Aborrecer", false]);
+    swotWeaknesses.add(["Traición / Desvergüenza", false]);
+    swotWeaknesses.add(["Injusticia / Parcialidad", false]);
+    swotWeaknesses.add([
+      "Carencia de dirección, organización, autoridad, dominio de grupo",
+      false
+    ]);
+    swotWeaknesses.add(["Descontrol / Descuido", false]);
+    swotWeaknesses.add(["Osadía / Ligereza", false]);
+    swotWeaknesses.add(["Soberbia / Arrogancia", false]);
+    swotWeaknesses.add(["Aprecio por la fealdad y antiestética", false]);
+    swotWeaknesses.add(["Ingratitud / Deslealtad", false]);
+    swotWeaknesses.add(["Desesperanza / Desaliento / Pesimismo", false]);
+    swotWeaknesses.add(["Materialismo / Agnosticismo", false]);
+    swotWeaknesses.add(["Castigo / Crueldad / Severidad", false]);
+    swotWeaknesses.add(["Seriedad / disgusto", false]);
+    swotWeaknesses.add(["Desaliento / Tibieza", false]);
+
+    _myBox.put("swotWeaknesses", swotWeaknesses);
+  }
+
+  // load the saved WEAKNESSES
+  void loadWeaknesses() {
+    swotWeaknesses = _myBox.get("swotWeaknesses");
+  }
+
+  // update the WEAKNESSES list, new, edit, delet
+  void updateWeaknesses() {
+    _myBox.put("swotWeaknesses", swotWeaknesses);
+  }
+
+  // init the THREAD list with default data
+  void initThreads() {
+    swotThreads.add([
+      "Falta de apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
+      false
+    ]);
+    swotThreads.add([
+      "Falta de apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+      false
+    ]);
+    swotThreads.add([
+      "Falta de apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+      false
+    ]);
+    swotThreads.add(
+        ["Falta de prevención de accidentes y desastres naturales", false]);
+
+    _myBox.put("swotThreads", swotThreads);
+  }
+
+  // load the saved THREADS
+  void loadThreads() {
+    swotThreads = _myBox.get("swotThreads");
+  }
+
+  // update the THREADS list, new, edit, delet
+  void updateThreads() {
+    _myBox.put("swotThreads", swotThreads);
+  }
+
+  // init the OPPORTUNITITES list with default data
+  void initOpportunities() {
+    swotOpportunities.add([
+      "Apoyo familiar y social (educación, psicoemocional, comunicación, económico, nutricional, salud, seguridad, situación ambiental, entretenimiento, cultural, tecnológico)",
+      false
+    ]);
+    swotOpportunities.add([
+      "Apoyo del gobierno (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+      false
+    ]);
+    swotOpportunities.add([
+      "Apoyo institucional (educación, trabajo, vivienda, económico, comunicación, servicios salud y seguridad, situación ambiental, entretenimiento, psicosocial, cultural, tecnológico)",
+      false
+    ]);
+    swotOpportunities
+        .add(["Prevención de accidentes y desastres naturales", false]);
+
+    _myBox.put("swotOpportunities", swotOpportunities);
+  }
+
+  // load the saved OPPORTUNITIES
+  void loadOpportunities() {
+    swotOpportunities = _myBox.get("swotOpportunities");
+  }
+
+  // update the OPPORTUNITIES list, new, edit, delet
+  void updateOpportunities() {
+    _myBox.put("swotOpportunities", swotOpportunities);
   }
 }

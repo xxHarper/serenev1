@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MySimpleDialogList extends StatelessWidget {
-  final List<String> list;
+  final List list;
   final Color letter;
 
   const MySimpleDialogList({Key? key, required this.list, required this.letter})
@@ -25,11 +25,11 @@ class MySimpleDialogList extends StatelessWidget {
                     itemCount: list.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Text(
-                        list[index],
-                        /* "•  ${list[index]}", */
+                        list[index][0],
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 18,
+                        ),
                       );
                     })),
             TextButton(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
@@ -14,18 +13,7 @@ import '../../data/user_database.dart';
 import '../../services/local_storage.dart';
 
 class Summary extends StatelessWidget {
-  final List<String> strenghts;
-  final List<String> threads;
-  final List<String> opportunities;
-  final List<String> weaknesses;
-
-  Summary(
-      {Key? key,
-      required this.strenghts,
-      required this.threads,
-      required this.opportunities,
-      required this.weaknesses})
-      : super(key: key);
+  Summary({Key? key}) : super(key: key);
 
   final Color back = const Color(0xff42BF9F);
   final Color lightBackground = const Color(0XFFE2FFF7);
@@ -35,14 +23,66 @@ class Summary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserDatabase db = UserDatabase();
+
+    // Load all the saved DATA
     db.loadObjetives();
+    db.loadStrenghts();
+    db.loadOpportunities();
+    db.loadStrenghts();
+    db.loadThreads();
+    db.loadWeaknesses();
+
     List objetives = [];
+    List strenghts = [];
+    List opportunities = [];
+    List threads = [];
+    List weaknesses = [];
 
     // create a new list with only the TRUE
     // objetives
     for (var objetive in db.objetivesModule1) {
       if (objetive[1]) {
         objetives.add(objetive);
+      }
+    }
+
+    // create a new list with only the TRUE
+    // strenghts
+    for (var strenght in db.swotStrenghts) {
+      {
+        if (strenght[1]) {
+          strenghts.add(strenght);
+        }
+      }
+    }
+
+    // create a new list with only the TRUE
+    // threads
+    for (var thread in db.swotThreads) {
+      {
+        if (thread[1]) {
+          threads.add(thread);
+        }
+      }
+    }
+
+    // create a new list with only the TRUE
+    // weaknesses
+    for (var weak in db.swotWeaknesses) {
+      {
+        if (weak[1]) {
+          weaknesses.add(weak);
+        }
+      }
+    }
+
+    // create a new list with only the TRUE
+    // opportunities
+    for (var opportunitie in db.swotOpportunities) {
+      {
+        if (opportunitie[1]) {
+          opportunities.add(opportunitie);
+        }
       }
     }
 
