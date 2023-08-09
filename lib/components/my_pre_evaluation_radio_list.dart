@@ -2,30 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:serenev1/data/user_database.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 
-import '../services/local_storage.dart';
-
-class MyRadioList extends StatefulWidget {
+class MyPreEvaluationRadioList extends StatefulWidget {
   final Question question;
   final List<Option> options;
   final Color back;
   final int questionNumber;
 
-  MyRadioList(
-      {Key? key,
-      required this.question,
-      required this.options,
-      required this.back,
-      required this.questionNumber})
-      : super(key: key);
+  MyPreEvaluationRadioList({
+    Key? key,
+    required this.question,
+    required this.options,
+    required this.back,
+    required this.questionNumber,
+  }) : super(key: key);
 
   @override
-  _MyRadioListState createState() => _MyRadioListState();
+  _MyPreEvaluationRadioListState createState() =>
+      _MyPreEvaluationRadioListState();
 }
 
-class _MyRadioListState extends State<MyRadioList> {
-  final List<String> answers =
-      LocalStorage.prefs.getStringList("answers") ?? [];
-
+class _MyPreEvaluationRadioListState extends State<MyPreEvaluationRadioList> {
   UserDatabase db = UserDatabase();
 
   @override

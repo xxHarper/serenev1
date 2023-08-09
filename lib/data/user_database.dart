@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:serenev1/models/mini_quiz_model.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 
 // Reference our box/database
@@ -6,8 +7,10 @@ final _myBox = Hive.box("User_Database");
 
 // general user class
 class UserDatabase {
-  // For the pre-evaluation
+  // ----- PRE EVALUATION -----
   List selectedAnswers = [];
+
+  // ----- MODULE 1 ------
   // Objetives for module1
   List objetivesModule1 = [];
   // User strenghts from swot (FODA)
@@ -18,6 +21,30 @@ class UserDatabase {
   List swotThreads = [];
   // User opportunities from swot (FODA)
   List swotOpportunities = [];
+  // Mini QUIZ from module 1
+  List miniQuizResult = [];
+
+  // Initialize the mini QUIZ for the user
+  void initQuiz() {
+    for (var question in quiz) {
+      miniQuizResult.add(["", ""]);
+    }
+
+    _myBox.put("miniQuizResult", miniQuizResult);
+  }
+
+  // Load the saved data in quiz
+  void loadQuiz() {
+    miniQuizResult = _myBox.get("miniQuizResult");
+  }
+
+  // update the data in quiz
+  void updateQuiz(int index, String selectedOption, String reflection) {
+    miniQuizResult[index][0] = selectedOption;
+    miniQuizResult[index][1] = reflection;
+
+    _myBox.put("miniQuizResult", miniQuizResult);
+  }
 
   // Initialize de selectedAnswers list for the first time
   // it means, empty String because of option.text and the int value

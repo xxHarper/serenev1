@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:serenev1/components/my_radio_list.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/data/user_database.dart';
 import 'package:serenev1/models/pre_assessment.dart';
 import 'package:serenev1/pages/results_page.dart';
 
+import '../components/my_pre_evaluation_radio_list.dart';
 import '../components/my_simple_app_bar.dart';
 import '../components/my_top_module_title.dart';
 import '../services/local_storage.dart';
@@ -27,7 +27,6 @@ class _EvaluationPageState extends State<EvaluationPage> {
   bool enabledNext = false;
 
   List<Question> questions = [];
-  List<Option> options = [];
   double percent = LocalStorage.prefs.getDouble("percent") ?? 0.02;
   String auxPercent = "";
   double twoDecimalsPercent = 0.00;
@@ -58,10 +57,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
     }
 
     sociodemographic.forEach((question) {
-      questions.add(Question(
-          text: question.text,
-          options: question.options,
-          selectedOption: question.selectedOption));
+      questions.add(Question(text: question.text, options: question.options));
     });
   }
 
@@ -189,7 +185,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
                         fontSize: 22, fontWeight: FontWeight.normal),
                   ),
                   Expanded(
-                    child: MyRadioList(
+                    child: MyPreEvaluationRadioList(
                       question: questions[index],
                       back: back,
                       options: questions[index].options,
@@ -199,7 +195,7 @@ class _EvaluationPageState extends State<EvaluationPage> {
 
                   // IN CASE... ASK FOR THE MEDICINE
                   if (_questionNumber == 3 &&
-                      questions[index].selectedOption == "Si")
+                      db.selectedAnswers[index][0] == "Si")
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(

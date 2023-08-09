@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:hive/hive.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/components/my_simple_container.dart';
 import 'package:serenev1/components/my_top_module_title.dart';
-import 'package:serenev1/dialogs/my_simple_dialog.dart';
-import 'package:serenev1/modules/module_1/video.dart';
+import 'package:serenev1/modules/module_1/quiz_results.dart';
 
+import '../../components/my_quiz_radio_list.dart';
 import '../../components/my_simple_app_bar.dart';
-import '../../models/option_widget.dart';
-import '../../models/question_model.dart';
+import '../../data/user_database.dart';
+import '../../models/mini_quiz_model.dart';
+import '../../models/pre_assessment.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({Key? key}) : super(key: key);
@@ -23,14 +26,35 @@ class _QuizState extends State<Quiz> {
 
   PageController? _controller;
   int _questionNumber = 1;
+  bool enabledNext = false;
+
+  List<Question> questions = [];
+
+  UserDatabase db = UserDatabase();
+  final _myBox = Hive.box("User_Database");
+
+  void readQuiz() {
+    if (_myBox.get("miniQuizResult") == null) {
+      db.initQuiz();
+    } else {
+      db.loadQuiz();
+    }
+
+    for (var question in quiz) {
+      questions.add(question);
+    }
+  }
 
   @override
   void initState() {
-    super.initState();
-
     setState(() {
-      _controller = PageController(initialPage: 0, keepPage: true);
+      readQuiz();
+      _controller = PageController(
+        initialPage: 0,
+      );
     });
+
+    super.initState();
   }
 
   @override
@@ -86,22 +110,11 @@ class _QuizState extends State<Quiz> {
                       thickness: 1,
                       color: letter,
                     ),
-                    Container(
-                      height: 320,
-                      color: lightBackground,
-                      /* color: Colors.red, */
-                      child: Expanded(
-                          child: PageView.builder(
-                        controller: _controller,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: quiz.length,
-                        itemBuilder: (context, index) {
-                          final _question = quiz[index];
-                          return buildQuestion(_question);
-                        },
-                      )),
+                    SizedBox(
+                      height: 280,
+                      child: showQuiz(),
                     ),
-                    buildElevatedButton(),
+                    enabledButton(),
                   ],
                 ),
               ),
@@ -126,74 +139,69 @@ class _QuizState extends State<Quiz> {
     );
   }
 
-  Column buildQuestion(Question question) {
-    var isSelected;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            question.text,
-            style: const TextStyle(fontSize: 20),
-            textAlign: TextAlign.justify,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: OptionWidget(
-            question: question,
-            onClikedOption: (option) {
-              if (question.isLocked) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return MySimpleDialog(
-                          txt: option.reflection, letter: letter);
-                    });
-                return;
-              } else {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return MySimpleDialog(
-                          txt: option.reflection, letter: letter);
-                    });
-                setState(() {
-                  question.isLocked = true;
-                  question.selectedOption = option;
-                  isSelected = option == question.selectedOption;
-                });
-              }
-            },
-          ),
-        ),
-      ],
-    );
+  Widget showQuiz() {
+    return PageView.builder(
+        controller: _controller,
+        itemCount: quiz.length,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {});
+        },
+        itemBuilder: (context, index) {
+          // MAGIC FOR SETSTATE XD
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            setState(() {});
+          });
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                questions[index].text,
+                style: const TextStyle(
+                    fontSize: 22, fontWeight: FontWeight.normal),
+              ),
+              Expanded(
+                child: MyQuizRadioList(
+                  question: questions[index],
+                  back: back,
+                  options: questions[index].options,
+                  questionNumber: index,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
-  MySimpleButton buildElevatedButton() {
+  Widget enabledButton() {
+    if (db.miniQuizResult[_questionNumber - 1][0] != "") {
+      setState(() {
+        enabledNext = true;
+      });
+    }
+
     return MySimpleButton(
+      enabled: enabledNext,
       onPressed: () {
         if (_questionNumber < quiz.length) {
           _controller!.nextPage(
-              duration: const Duration(milliseconds: 50),
+              duration: const Duration(milliseconds: 400),
               curve: Curves.easeInExpo);
 
           setState(() {
             _questionNumber++;
+            enabledNext = false;
           });
         } else {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const Video()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const QuizResults()));
         }
       },
-      txt: _questionNumber < quiz.length ? "Siguiente" : "Ver resultados",
+      txt: _questionNumber < quiz.length ? "Siguiente" : "Ver Resultado",
       back: back,
       txtColor: Colors.white,
-      btnWidth: 150,
+      btnWidth: _questionNumber < quiz.length ? 110 : 150,
     );
   }
 }

@@ -1,34 +1,19 @@
-import 'package:serenev1/services/local_storage.dart';
-
 class Question {
   final String text;
   final List<Option> options;
 
-  String selectedOption;
   int selectedValue;
 
   Question(
-      {required this.text,
-      required this.options,
-      this.selectedOption = "",
-      this.selectedValue = 10});
+      {required this.text, required this.options, this.selectedValue = 50});
 }
 
 class Option {
   final String text;
   int value;
+  final String reflection;
 
-  Option({required this.text, this.value = 10});
-}
-
-void saveAnswer(Question question, String option, String key) {
-  question.selectedOption = option;
-  LocalStorage.prefs.setString(key, option);
-}
-
-void saveValue(Question question, Option option, String key) {
-  question.selectedValue = option.value;
-  LocalStorage.prefs.setInt(key, option.value);
+  Option({required this.text, this.value = 10, this.reflection = ""});
 }
 
 final sociodemographic = [
