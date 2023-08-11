@@ -9,6 +9,8 @@ final _myBox = Hive.box("User_Database");
 class UserDatabase {
   // ----- PRE EVALUATION -----
   List selectedAnswers = [];
+  // result of each item
+  List results = [];
 
   // ----- MODULE 1 ------
   // Objetives for module1
@@ -24,6 +26,7 @@ class UserDatabase {
   // Mini QUIZ from module 1
   List miniQuizResult = [];
 
+  // ----- MINI QUIZ ------
   // Initialize the mini QUIZ for the user
   void initQuiz() {
     for (var question in quiz) {
@@ -46,6 +49,31 @@ class UserDatabase {
     _myBox.put("miniQuizResult", miniQuizResult);
   }
 
+  // ----- RESULTS ------
+  // Init the list for the results
+  void initResults() {
+    // BAI
+    results.add(0);
+    // BDI
+    results.add(0);
+    // MINI
+    results.add(0);
+
+    _myBox.put("results", results);
+  }
+
+  // load the saved data in results
+  void loadResults() {
+    results = _myBox.get("results");
+  }
+
+  // update the data in results
+  void updateResults(int index, int result) {
+    results[index] = result;
+    _myBox.put("results", results);
+  }
+
+  // ----- SELECTED ANSWERS ------
   // Initialize de selectedAnswers list for the first time
   // it means, empty String because of option.text and the int value
   void initSelectedANswers() {
@@ -71,6 +99,7 @@ class UserDatabase {
     _myBox.put("selectedAnswers", selectedAnswers);
   }
 
+  // ----- OBJETIVES ------
   // Initialize de objetives list for the first time
   // they're chebox so we need the text and the bool
   void initObjetives() {
@@ -149,6 +178,7 @@ class UserDatabase {
     _myBox.put("objetivesModule1", objetivesModule1);
   }
 
+  // ----- STRENGHTS ------
   // init the STRENGHTS list with default data
   void initStrenghts() {
     swotStrenghts.add(["Sabiduría y conocimiento", false]);
@@ -200,6 +230,7 @@ class UserDatabase {
     _myBox.put("swotStrenghts", swotStrenghts);
   }
 
+  // ----- WEAKNESSES ------
   // init the WEAKNESSES list with default data
   void initWeaknesses() {
     swotWeaknesses.add(["Ignorancia / Desconocimiento", false]);
@@ -246,6 +277,7 @@ class UserDatabase {
     _myBox.put("swotWeaknesses", swotWeaknesses);
   }
 
+  // ----- THREAD ------
   // init the THREAD list with default data
   void initThreads() {
     swotThreads.add([
@@ -276,6 +308,7 @@ class UserDatabase {
     _myBox.put("swotThreads", swotThreads);
   }
 
+  // ----- OPPORTUNITITES ------
   // init the OPPORTUNITITES list with default data
   void initOpportunities() {
     swotOpportunities.add([

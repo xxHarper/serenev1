@@ -13,7 +13,7 @@ class Option {
   int value;
   final String reflection;
 
-  Option({required this.text, this.value = 10, this.reflection = ""});
+  Option({required this.text, this.value = 50, this.reflection = ""});
 }
 
 final sociodemographic = [
@@ -899,11 +899,11 @@ final sociodemographic = [
       value: 0,
     ),
     Option(
-      text: "",
+      text: "1",
       value: 1,
     ),
     Option(
-      text: "",
+      text: "2",
       value: 2,
     ),
     Option(
@@ -917,11 +917,11 @@ final sociodemographic = [
       value: 0,
     ),
     Option(
-      text: "",
+      text: "1",
       value: 1,
     ),
     Option(
-      text: "",
+      text: "2",
       value: 2,
     ),
     Option(
@@ -935,11 +935,11 @@ final sociodemographic = [
       value: 0,
     ),
     Option(
-      text: "",
+      text: "1",
       value: 1,
     ),
     Option(
-      text: "",
+      text: "2",
       value: 2,
     ),
     Option(
@@ -953,11 +953,11 @@ final sociodemographic = [
       value: 0,
     ),
     Option(
-      text: "",
+      text: "1",
       value: 1,
     ),
     Option(
-      text: "",
+      text: "2",
       value: 2,
     ),
     Option(
@@ -973,11 +973,11 @@ final sociodemographic = [
           value: 0,
         ),
         Option(
-          text: "",
+          text: "1",
           value: 1,
         ),
         Option(
-          text: "",
+          text: "2",
           value: 2,
         ),
         Option(

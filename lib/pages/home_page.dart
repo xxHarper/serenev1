@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:serenev1/components/my_simple_button.dart';
 import 'package:serenev1/modules/module_1/module_1.dart';
-import 'package:serenev1/pages/evaluation_page.dart';
 import 'package:serenev1/pages/evaluation_video.dart';
+import 'package:serenev1/pages/results_page.dart';
 
 import '../services/notification_services.dart';
 
@@ -166,25 +166,34 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Container(
-                          child: Center(
-                              child: Text(
-                            "2. Hábitos saludables",
-                            textAlign: TextAlign.center,
-                          )),
-                          height: 200,
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Colors.grey[200],
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.purpleAccent.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResultsPage()),
+                            );
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Text(
+                              "2. Hábitos saludables",
+                              textAlign: TextAlign.center,
+                            )),
+                            height: 200,
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.grey[200],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.purpleAccent.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(

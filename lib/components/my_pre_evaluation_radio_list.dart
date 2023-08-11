@@ -40,7 +40,7 @@ class _MyPreEvaluationRadioListState extends State<MyPreEvaluationRadioList> {
           child: RadioListTile(
             activeColor: widget.back,
             title: Text(
-              widget.options[index].value == 10
+              widget.options[index].value == 50
                   ? widget.options[index].text
                   : "(${widget.options[index].value}) ${widget.options[index].text}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

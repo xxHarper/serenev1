@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:serenev1/onboarding_screen.dart';
 import 'package:serenev1/services/local_storage.dart';
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        textTheme:
+            GoogleFonts.titilliumWebTextTheme(Theme.of(context).textTheme),
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the

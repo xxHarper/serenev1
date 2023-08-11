@@ -27,9 +27,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
   bool enabledNext = false;
 
   List<Question> questions = [];
-  double percent = LocalStorage.prefs.getDouble("percent") ?? 0.02;
+  double percent = LocalStorage.prefs.getDouble("percent") ?? 0.0181;
   String auxPercent = "";
-  double twoDecimalsPercent = 0.00;
+  double twoDecimalsPercent = 0.0000;
 
   final String baiIntructions =
       "Indique para cada uno de los siguientes síntomas el grado en que se ha visto afectado por cada uno de ellos durante la última semana y en el momento actual. Elija de entre las siguientes opciones. \n\nDurante la última semana sentí…";
@@ -52,8 +52,10 @@ class _EvaluationPageState extends State<EvaluationPage> {
     // If this is the first time
     if (_myBox.get("selectedAnswers") == null) {
       db.initSelectedANswers();
+      db.initResults();
     } else {
       db.loadSelectedAnswers();
+      db.loadResults();
     }
 
     sociodemographic.forEach((question) {
@@ -345,9 +347,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
               setState(() {
                 if (_questionNumber > 1) {
                   _questionNumber--;
-                  percent -= 0.02;
+                  percent -= 0.0181;
 
-                  auxPercent = percent.toStringAsFixed(2);
+                  auxPercent = percent.toStringAsFixed(4);
                   twoDecimalsPercent = double.parse(auxPercent);
                   percent = twoDecimalsPercent;
                   LocalStorage.prefs.setDouble("percent", percent);
@@ -373,8 +375,8 @@ class _EvaluationPageState extends State<EvaluationPage> {
                   curve: Curves.easeInExpo);
 
               setState(() {
-                percent += 0.02;
-                auxPercent = percent.toStringAsFixed(2);
+                percent += 0.0181;
+                auxPercent = percent.toStringAsFixed(4);
                 twoDecimalsPercent = double.parse(auxPercent);
                 percent = twoDecimalsPercent;
                 LocalStorage.prefs.setDouble("percent", percent);
@@ -383,8 +385,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
                 enabledNext = false;
               });
             } else {
+              checkResults();
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const ResultsPage()));
+                  MaterialPageRoute(builder: (context) => ResultsPage()));
             }
           },
           txt: _questionNumber < questions.length
@@ -396,5 +399,59 @@ class _EvaluationPageState extends State<EvaluationPage> {
         )
       ],
     );
+  }
+
+  // Made the calculus for the results
+  void checkResults() {
+    db.loadSelectedAnswers();
+    db.loadResults();
+
+    print(db.selectedAnswers[44]);
+    int sum = 0;
+
+    // BAI results. | MAX 40 points 2 * 20
+    for (var i = 3; i < 23; i++) {
+      sum += int.parse(db.selectedAnswers[i][1].toString());
+    }
+
+    // Save the BAI result and reset sum
+    db.updateResults(0, sum);
+    sum = 0;
+
+    // BDI results. | MAX 63 points 3 * 21
+    for (var i = 23; i < 44; i++) {
+      sum += int.parse(db.selectedAnswers[i][1].toString());
+    }
+
+    // Save the BDI result and reset sum
+    db.updateResults(1, sum);
+    sum = 0;
+    print("ADIOS");
+
+    // MINI results
+    // Si en 1 o 2 o 6 == Ligero
+    if (db.selectedAnswers[44][0] == "Si" ||
+        db.selectedAnswers[45][0] == "Si" ||
+        db.selectedAnswers[50][0] == "Si") {
+      db.updateResults(2, 10);
+      print("HOLA");
+    }
+
+    // Si en 3 o (2 y 6) Si == Moderado
+    if (db.selectedAnswers[46][0] == "Si" ||
+        ((db.selectedAnswers[45][0] == "Si") &&
+            (db.selectedAnswers[50][0] == "Si"))) {
+      db.updateResults(2, 50);
+      print("HOLA1");
+    }
+
+    // Si 4 o 5 o (3 y 6) == Severo
+    if (db.selectedAnswers[47][0] == "Si" ||
+        db.selectedAnswers[48][0] == "Si" ||
+        ((db.selectedAnswers[46][0] == "Si") &&
+            (db.selectedAnswers[50][0] == "Si"))) {
+      db.updateResults(2, 100);
+      print("HOLA2");
+    }
   }
 }
